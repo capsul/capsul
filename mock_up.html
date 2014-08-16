@@ -2,15 +2,33 @@
 <html>
 <head>
   <title>Capsul</title>
-  <link rel="stylesheet" href="mock_up.css">
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+ <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script src="javascript/handlebars_lib.js"></script>
   <script src="javascript/app.js"></script>
+ <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+  <link rel="stylesheet" href="mock_up.css">
+
+
 </head>
 
+
+
+
   <body>
+    <div class = "header"><h1> Capsul</h1>
+    <h3>A day in the life</h3>
+    </div>
+
+    <div class = "map"> THIS IS WHERE THE MAP WILL GO IN MY MIND</div>
+    <div class= "time"> <p>Date: <input type="date" id="datepicker"></p>
+      <!-- if we do input type "date" it gives the calendar as well -->
+      <input type = "submit" id ="button" value ="Time Travel">
+
+    </div>
     <ul class="rig columns-3" id="content-container">
     </ul>
+
   </body>
 
 </html>

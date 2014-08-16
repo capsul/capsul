@@ -7,7 +7,30 @@ body {
   font-family: 'Helvetica Neue', arial, sans-serif;
   font-weight: 200;
 }
+.header {
+  height: 150px;
+  width: 100%;
+  background-color: #9966CC;
+}
 
+.map{
+  width: 100%;
+  height: 200px;
+  background-color: pink;
+}
+
+.time {
+  width: 100%;
+  height: 100px;
+  background-color: #99CC66;
+  text-align: center;
+}
+#datepicker {
+  width: 25%;
+  height: 50px;
+  text-align: center;
+  font-size: 2em;
+}
 /* ----- Image grids ----- */
 ul.rig {
   list-style: none;
