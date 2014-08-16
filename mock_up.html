@@ -2,53 +2,22 @@
 <html>
 <head>
   <title>Capsul</title>
-<link rel="stylesheet" href="mock_up.css">
+  <link rel="stylesheet" href="mock_up.css">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="javascript/handlebars_lib.js"></script>
+  <script src="javascript/app.js"></script>
 </head>
-<body>
-<ul class = "rig columns-3">
-<li>
-  <h3> Source (logo maybe put on top)</h3>
- <img src="http://placekitten.com.s3.amazonaws.com/homepage-samples/408/287.jpg"/></li>
 
+  <body>
+    <ul class="rig columns-3" id="tweets-container">
+    </ul>
+  </body>
 
-<li>
-  <h3> Source (logo maybe put on top)</h3>
- <img src= />
-</li>
-
-
-
- <li>
-  <h3> Source (logo maybe put on top)</h3>
- <img src="http://placekitten.com.s3.amazonaws.com/homepage-samples/408/287.jpg"/></li><li>
-  <h3> Source (logo maybe put on top)</h3>
- <img src="http://placekitten.com.s3.amazonaws.com/homepage-samples/408/287.jpg"/></li><li>
-  <h3> Source (logo maybe put on top)</h3>
- <img src="http://placekitten.com.s3.amazonaws.com/homepage-samples/408/287.jpg"/></li><li>
-  <h3> Source (logo maybe put on top)</h3>
- <img src="http://placekitten.com.s3.amazonaws.com/homepage-samples/408/287.jpg"/></li><li>
-  <h3> Source (logo maybe put on top)</h3>
- <img src="http://placekitten.com.s3.amazonaws.com/homepage-samples/408/287.jpg"/></li><li>
-  <h3> Source (logo maybe put on top)</h3>
- <img src="http://placekitten.com.s3.amazonaws.com/homepage-samples/408/287.jpg"/></li>
- <li>
-  <p> schmer</p>
-</li>
-<li>
-  <p> schmer</p>
-</li>
-<li>
-  <p> schmer</p>
-</li>
-<li>
-  <p> schmer</p>
-</li>
-<li>
-  <p> schmer</p>
-</li>
-</ul>
-
-
-
-</body>
 </html>
+
+<script id="image-template" type="text/x-handlebars-template">
+  <li class="tweet">
+    <h3>{{username}}</h3>
+    <img src="{{url}}"/>
+  </li>
+</script>
