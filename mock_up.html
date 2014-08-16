@@ -9,15 +9,22 @@
 </head>
 
   <body>
-    <ul class="rig columns-3" id="tweets-container">
+    <ul class="rig columns-3" id="content-container">
     </ul>
   </body>
 
 </html>
 
 <script id="image-template" type="text/x-handlebars-template">
-  <li class="tweet">
+  <li class="instagram">
     <h3>{{username}}</h3>
+    <img src="{{url}}"/>
+  </li>
+</script>
+
+<script id="tweet-template" type="text/x-handlebars-template">
+  <li class="tweeter">
+    <h3>{{tweet}}</h3>
     <img src="{{url}}"/>
   </li>
 </script>
