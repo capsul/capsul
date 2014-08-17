@@ -5,11 +5,12 @@
   <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
   <meta charset="utf-8">
  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script src="javascript/handlebars_lib.js"></script>
-  <script src="javascript/app.js"></script>
  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
-  <script src="javascript/map.js"></script>
+  <script src="javascript/handlebars_lib.js"></script>
+
+  <script src="javascript/app.js"></script>
+<script src="javascript/map.js"></script>
 
 <link href='http://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="mock_up.css">
@@ -21,9 +22,11 @@
     <h3>A day in the life</h3>
     </div>
 
-    <div class= "time"> <p> Pick a Day in the Past <input type="date" id="datepicker"></p> </div>
-      <input type = "submit" id ="button" value ="Time Travel">
-    <input id="pac-input" class="search-box" type="text" placeholder="Search for a place">
+   <div class = "schmee"> <input id="pac-input" class="search-box" type="text" placeholder="Search for a place">
+     <input id="datepicker" class = "date-box" type="date"  name ="date">
+      <input type ="submit" id="button" value ="Time Travel">
+    </div>
+
     <div id="map-canvas"></div>
       <!-- if we do input type "date" it gives the calendar as well -->
 

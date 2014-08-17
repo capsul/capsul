@@ -1,15 +1,13 @@
 $(document).ready(function() {
  $("#button").click(datePicker.validatesTime)
   // got rid of the init.  if we want to have a default set of pictures call this something else so we make the AJAX call only once (discuss later)
-
+  $("#pac-input").click(datePicker.showMap)
 
 });
 
 
-
-
-function init(miliSecondDate) {
-  ajax.request('http://api-capsul.herokuapp.com/text/'+ miliSecondDate, ContentHandler.getTweets);
+function init(lat,lng,miliSecondDate) {
+  ajax.request('http://api-capsul.herokuapp.com/users/1/media?lat='+lat+'&lng='+lng+'&time='+miliSecondDate, ContentHandler.getTweets);
   ajax.request('http://api-capsul.herokuapp.com/images', ContentHandler.getImages);
   ajax.request('http://api-capsul.herokuapp.com/images', ContentHandler.renderContent);
 }
@@ -35,7 +33,7 @@ var ContentHandler = (function() {
 
   return {
     getTweets: function(tweets) {
-      tweets.statuses.forEach(function(tweet) {
+      tweets.data.forEach(function(tweet) {
         var source = $('#tweet-template').html();
         var template = Handlebars.compile(source);
         var info = {
@@ -83,12 +81,20 @@ var datePicker = (function(){
     var date = document.querySelector('[type=date]').value
     var twoDays = Date.now() - 172800000
     var miliSecondDate = new Date(date).getTime()
+    var lat = map.center.k
+    var lng = map.center.B
+
     if (miliSecondDate < twoDays){
-      init(miliSecondDate)
+      $("#map-canvas").hide()
+      init(lat,lng,miliSecondDate)
+      console.log(init(lat,lng,miliSecondDate))
     }
     else{
       alert('We Can Only Travel Back in Time...now ;)')
       }
+    },
+    showMap: function(){
+  $("#map-canvas").show()
     }
   }
 }) ();
@@ -101,4 +107,6 @@ Array.prototype.shuffle = function() {
 }
 
 
+// map.center.B => lng
+// map.center.k => lat
 
