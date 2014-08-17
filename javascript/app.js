@@ -1,22 +1,17 @@
 $(document).ready(function() {
-  init();
-  // get rid of the above init.  if we want to have a default set of pictures call this something else so we make the AJAX call only once (discuss later)
-  $("#button").click(init)
-  $("#button").click(notFuture)
+   $("#button").click(validatesTime)
+  // got rid of the init.  if we want to have a default set of pictures call this something else so we make the AJAX call only once (discuss later)
 
-  // #bindlisteners - make bindlisteners function
-  // inside function use jquerty to grab input out of dom.  Grab element by id button
-  // do something for now, later call the init function
 
 });
 
 
 
-function init() {
-  ajax.request('http://api-capsul.herokuapp.com/text', ContentHandler.getTweets);
+
+function init(miliSecondDate) {
+  ajax.request('http://api-capsul.herokuapp.com/text/'+ miliSecondDate, ContentHandler.getTweets);
   ajax.request('http://api-capsul.herokuapp.com/images', ContentHandler.getImages);
   ajax.request('http://api-capsul.herokuapp.com/images', ContentHandler.renderContent);
-
 }
 
 
@@ -82,21 +77,25 @@ var ContentView = (function() {
   }
 })();
 
-function notFuture(event) {
+function validatesTime(event) {
   var date = document.querySelector('[type=date]').value
+  var twoDays = Date.now() - 172800000
   var miliSecondDate = new Date(date).getTime()
-
-  if (miliSecondDate > Date.now()){
-    alert('We Can Only Travel Back in Time...now ;)')
+  if (miliSecondDate < twoDays){
+    init(miliSecondDate)
   }
   else{
-      // console.log("CATS") ask Patty what form he needs the date in, give him also the TIME in the UTC, put it to the browser? yes? no? schmeh?
+    alert('We Can Only Travel Back in Time...now ;)')
+
     }
 }
+
+
 //This is hacky but there is no shuffle method for arrays.
 Array.prototype.shuffle = function() {
   for(var j, x, i = this.length; i; j = Math.floor(Math.random() * i), x = this[--i], this[i] = this[j], this[j] = x);
     return this;
 }
+
 
 
