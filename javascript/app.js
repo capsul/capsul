@@ -1,5 +1,5 @@
 $(document).ready(function() {
-   $("#button").click(validatesTime)
+ $("#button").click(datePicker.validatesTime)
   // got rid of the init.  if we want to have a default set of pictures call this something else so we make the AJAX call only once (discuss later)
 
 
@@ -77,18 +77,21 @@ var ContentView = (function() {
   }
 })();
 
-function validatesTime(event) {
-  var date = document.querySelector('[type=date]').value
-  var twoDays = Date.now() - 172800000
-  var miliSecondDate = new Date(date).getTime()
-  if (miliSecondDate < twoDays){
-    init(miliSecondDate)
-  }
-  else{
-    alert('We Can Only Travel Back in Time...now ;)')
-
+var datePicker = (function(){
+  return {
+   validatesTime: function(event) {
+    var date = document.querySelector('[type=date]').value
+    var twoDays = Date.now() - 172800000
+    var miliSecondDate = new Date(date).getTime()
+    if (miliSecondDate < twoDays){
+      init(miliSecondDate)
     }
-}
+    else{
+      alert('We Can Only Travel Back in Time...now ;)')
+      }
+    }
+  }
+}) ();
 
 
 //This is hacky but there is no shuffle method for arrays.
