@@ -1,0 +1,11 @@
+html{
+  margin: 0;
+  padding: 0;
+}
+#slideshow div{
+  height: 100%;
+  width: 100%;
+  background-image: url('images/bg_01.jpg');
+  background-size: cover;
+  position: absolute;
+}
