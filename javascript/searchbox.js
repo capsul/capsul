@@ -27,7 +27,6 @@ var SearchBoxController = (function(holder){
         return
       }
       this.getBounds(places)
-      renderImages();
     },
 
     //this needs to be refactored

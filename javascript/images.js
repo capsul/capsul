@@ -1,31 +1,14 @@
 $(document).ready(initialize);
 
-var url = 'http://api-capsul.herokuapp.com/users/1/media?lat=36.121507&lng=-115.169570&time=1388563200';
+//hardcoded test URL. will remove later, only need this for testing right now.
+var url = 'http://api-capsul.herokuapp.com/users/1/test?lat=36.121507&lng=-115.169570&time=1388563200';
 
 function initialize() {
   Ajax.request(url, ImagesController.prepareImages.bind(ImagesController));
+  $("#button").click(ImagesController.updateImages.bind(ImagesController));
+
+  //temporarily hiding the map for now.  Need to fix html due to rendering issues.
   $('#map-canvas').hide();
-  $("#button").click(updateImages);
-}
-
-function updateImages(){
-  var dynamicURL = constructURL(event);
-  console.log(dynamicURL);
-  Ajax.request(dynamicURL, ImagesController.prepareImages.bind(ImagesController));
-}
-
-function constructURL(event){
-  console.log(event);
-  var base = 'http://api-capsul.herokuapp.com/users/1/media?'
-  // var lat = "lat=" + MapController.getLatitude() + "&";
-  var lat = "lat=" + 37.778599 + "&";
-  // var lng = "lng=" + MapController.getLongitude() + "&";
-  var lng = "lng=" + -122.389076 + "&";
-  var date = document.querySelector('[type=date]').value;
-  var unixTimestamp = "time=" + (new Date(date).getTime());
-  var timestamp = unixTimestamp.substr(0,15);
-  var url = base + lat + lng + timestamp;
-  return url;
 }
 
 //Ajax Module to make ajax calls
@@ -40,21 +23,27 @@ var Ajax = (function(){
   }
 })();
 
-
 //Controller Below
 var ImagesController = (function(){
+
+  //Figure out how to make self equal ImagesController here
+  //so all methods have access to self
+  var self;
 
   return {
 
     prepareImages: function(images){
       var imageBundle = this.compileImages(images);
+      ImageView.clearOldImages();
       this.renderHTML(imageBundle.collection);
     },
 
     compileImages: function(images){
       var imageBundle = new ImageBundle();
-      images.data.forEach(function(image,index){
-        imageBundle.collection.push(new Image("username",image.images.standard_resolution.url));
+      console.log(images.data)
+      images.data.forEach(function(image){
+        console.log(image.images.high_res)
+        imageBundle.collection.push(new Image(image.author,image.images.high_res));
       })
       Images.all.push(imageBundle);
       return imageBundle;
@@ -76,17 +65,39 @@ var ImagesController = (function(){
         url: image.url
       };
       return template(info);
-    }
+    },
 
+    updateImages: function(){
+      var self = this;
+      var dynamicURL = self.constructURL();
+      Ajax.request(dynamicURL, self.prepareImages.bind(self));
+    },
+
+    constructURL: function(){
+      var base = 'http://api-capsul.herokuapp.com/users/1/test?'
+      var latNumber = Number(MapController.getLatitude()).toPrecision(8);
+      var lat = "lat=" + latNumber + "&";
+      var lngNumber = Number(MapController.getLongitude()).toPrecision(8);
+      var lng = "lng=" + lngNumber + "&";
+      var date = document.querySelector('[type=date]').value;
+      var unixTimestamp = "time=" + (new Date(date).getTime());
+      var timestamp = unixTimestamp.substr(0,15);
+
+      var url = base + lat + lng + timestamp;
+      return url;
+    }
   }
-})(ImageView);
+})();
 
 
 //View Below
 var ImageView = (function(){
   return {
-    render: function(item){
-      $('#content-container').append(item);
+    render: function(html){
+      $('#content-container').append(html);
+    },
+    clearOldImages: function(){
+      $('.image').remove();
     }
   }
 })()
@@ -141,16 +152,6 @@ var DateHandler = (function(){
   }
 })();
 
-var LocationHandler = (function(){
-  return {
-    getLatitude: function(){
-      console.log(map.center.k);
-    },
-    getLongitude: function(){
-      console.log(map.center.B);
-    }
-  }
-})()
 //END OF PRODUCTION CODE
 //-----------------------------------------------------------------------
 

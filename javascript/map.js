@@ -5,15 +5,13 @@ var MapHolder = (function(){
 })()
 
 //Map Controller Below
-var MapController = (function(holder){
+var MapController = (function(){
 
   return {
 
     enableMap: function(){
       this.makeGoogleMap();
       this.listenForLocationChange();
-      this.getLatitude();
-      this.getLongitude();
     },
 
     makeGoogleMap: function(event) {
@@ -22,7 +20,6 @@ var MapController = (function(holder){
         zoom: 4,
         center: new google.maps.LatLng(37.1, -95.7),
         mapTypeControl: false,
-
         panControl: false,
         zoomControl: true,
         zoomControlOptions: {
@@ -30,15 +27,16 @@ var MapController = (function(holder){
         },
         streetViewControl: false
       };
-      holder.map = new google.maps.Map(document.getElementById('map-canvas'), myOptions)
+
+      MapHolder.map = new google.maps.Map(document.getElementById('map-canvas'), myOptions)
     },
 
     listenForLocationChange: function(){
-      google.maps.event.addListener(holder.map,"bounds_changed", this.updateBounds)
+      google.maps.event.addListener(MapHolder.map,"bounds_changed", this.updateBounds)
     },
 
     updateBounds: function(){
-      var bounds = holder.map.getBounds();
+      var bounds = MapHolder.map.getBounds();
       SearchHolder.searchBox.setBounds(bounds);
     },
 
@@ -51,7 +49,7 @@ var MapController = (function(holder){
     }
 
   }
-}(MapHolder))
+})()
 
 google.maps.event.addDomListener(window, 'load', MapController.enableMap.bind(MapController));
 
