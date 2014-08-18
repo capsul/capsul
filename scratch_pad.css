@@ -5,7 +5,7 @@ html{
 #slideshow div{
   height: 100%;
   width: 100%;
-  background-image: url('images/bg_01.jpg');
+  /*background-image: url('images/bg_01.jpg');*/
   background-size: cover;
   position: absolute;
 }
