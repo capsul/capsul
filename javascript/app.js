@@ -1,5 +1,5 @@
 $(document).ready(function() {
- $("#button").click(datePicker.validatesTime)
+  $("#button").click(datePicker.validatesTime);
   // got rid of the init.  if we want to have a default set of pictures call this something else so we make the AJAX call only once (discuss later)
   $("#pac-input").click(datePicker.showMap)
 
