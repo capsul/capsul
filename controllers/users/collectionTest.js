@@ -24,10 +24,16 @@ module.exports = (function(){
       "data": []
     }
 
+    function addGranuals(granualCollection) {
+    	granualCollection.forEach(function(granual) {
+    		capsul.data.push(granual);
+    	});
+    }
+
     // Joining all source granuals
-    capsul.data.push(instagramGranuals);
-    // capsul.data.push(twitterGranuals);
-    // capsul.data.push(flickrGranuals);
+    addGranuals(instagramGranuals);
+    // addGranuals(twitterGranuals);
+    // addGranuals(flickrGranuals);
 
 		this.body = yield capsul;
 	}
