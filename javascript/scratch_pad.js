@@ -94,11 +94,6 @@ var SlideshowController = (function(){
 var SlideView = (function(){
   return {
     render: function(slideHTML, slideBgImage){
-      console.log("here's what is in slideBGImage");
-      console.log(slideBgImage);
-      console.log("here's what the slide HTML looks like");
-      console.log(slideHTML);
-      console.log($(slideHTML));
       $('#slideshow').append(slideHTML);
       $('#slideshow .slide').last().css({
                                      'background-image' : 'url('+slideBgImage+')',

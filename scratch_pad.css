@@ -29,14 +29,6 @@ header p {
   font-weight:400;
 }
 
-#slideshow div{
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  /*background-image: url('images/bg_01.jpg');*/
-  background-size: cover;
-}
-
 .logo {
   display: inline-block;
   width: 20px;
@@ -45,6 +37,10 @@ header p {
 }
 
 .slide {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-size: cover;
 }
 
 .slide-text {
@@ -52,10 +48,12 @@ header p {
   color: #FFFFFF;
   text-shadow: 0 0 10px rgba(0,0,0,.5);
 }
+
 .slide-text h1 {
   font-size: 50px;
   margin-bottom: 30px;
 }
+
 .slide-text h3{
   margin-top: 5px
 }
