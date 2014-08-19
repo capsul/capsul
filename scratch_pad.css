@@ -12,7 +12,7 @@ html{
 
 header {
   color: #FFFFFF;
-  position: absolute;
+  /*position: absolute;*/
   width: 100%;
   opacity: .65;
   background-color: #000000;
@@ -82,13 +82,37 @@ header p span {
   min-height: 550px;
 }
 
+#cb-wrapper {
+  width: 100%;
+  position: relative;
+  top: 40%;
+}
+
 #control-bar {
+  padding: 20px 85px;
   width: 100%;
   height: 200px;
   background-color: #000000;
   opacity: .85;
-  position: relative;
-  top: 55%;
-
+  /*position: relative;*/
+  /*top: 60%;*/
 }
 
+.cb-module {
+  color: #ffffff;
+  /*position: relative;*/
+  display: inline-block;
+  background-color: pink;
+}
+
+.cbm-mid {
+  margin-left: 80px;
+  margin-right: 80px;
+}
+
+
+
+/* #button {
+  margin: 100px;
+  float: right;
+}*/

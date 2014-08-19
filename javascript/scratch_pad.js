@@ -93,6 +93,17 @@ var SlideshowController = (function(){
   }
 })(SlideView);
 
+var controlBarController = (function() {
+  return{
+    slideUp: function() {
+      $(".button").click(function(){
+        $("#cb-wrapper").animate({
+          top:"0%"
+        }, "slow")
+      });
+    }
+    }
+}) ()
 
 //View Below
 var SlideView = (function(){
@@ -135,4 +146,10 @@ function Slide(slide) {
   this.textcolor = slide.textcolor
 };
 
-$( document ).ready(SlideshowController.prepareSlides.bind(SlideshowController));
+
+$(document).ready(SlideshowController.prepareSlides.bind(SlideshowController)
+  )
+
+$(document).ready(function(){
+  controlBarController.slideUp();
+})
