@@ -1,63 +1,52 @@
 $(document).ready(initialize);
 
-//hardcoded test URL. will remove later, only need this for testing right now.
-var url = 'http://api-capsul.herokuapp.com/users/1/test?lat=36.121507&lng=-115.169570&time=1388563200';
 
 function initialize() {
-  Ajax.request(url, ImagesController.prepareImages.bind(ImagesController));
-  $("#button").click(ImagesController.updateImages.bind(ImagesController));
-
-  //temporarily hiding the map for now.  Need to fix html due to rendering issues.
-  $('#map-canvas').hide();
+  $("#button").click(ImagesController.renderImages.bind(ImagesController));
 }
 
-//Ajax Module to make ajax calls
+// Ajax Module to make ajax calls
 var Ajax = (function(){
-  return {
-    request: function(url, callback){
-      var request = $.ajax({
-        url:url
-      })
-    request.done(callback);
-    }
-  }
+      return {
+        request: function(url, callback){
+          var request = $.ajax({
+          url:url
+        })
+          request.done(callback);
+        }
+      }
 })();
 
-//Controller Below
+// Controller Below
 var ImagesController = (function(){
 
   //Figure out how to make self equal ImagesController here
   //so all methods have access to self
   var self;
 
-  return {
-
-    prepareImages: function(images){
-      var imageBundle = this.compileImages(images);
+    function prepareImages(images){
+      var imageBundle = compileImages(images);
       ImageView.clearOldImages();
-      this.renderHTML(imageBundle.collection);
-    },
+      renderHTML(imageBundle.collection);
+    }
 
-    compileImages: function(images){
+    function compileImages(images){
       var imageBundle = new ImageBundle();
-      console.log(images.data)
       images.data.forEach(function(image){
-        console.log(image.images.high_res)
-        imageBundle.collection.push(new Image(image.author,image.images.high_res));
+        imageBundle.collection.push(new fuckinballs(image.author,image.images.high_res));
       })
       Images.all.push(imageBundle);
       return imageBundle;
-    },
+    }
 
-    renderHTML: function(bundle){
-      var self = this;
+    function renderHTML(bundle){
       bundle.forEach(function(image) {
-        image.html = self.createHTML(image);
+        image.html = createHTML(image);
         ImageView.render(image.html);
       })
-    },
+    }
 
-    createHTML: function(image){
+    function createHTML(image){
       var source = $('#image-template').html();
       var template = Handlebars.compile(source);
       var info = {
@@ -65,15 +54,9 @@ var ImagesController = (function(){
         url: image.url
       };
       return template(info);
-    },
+    }
 
-    updateImages: function(){
-      var self = this;
-      var dynamicURL = self.constructURL();
-      Ajax.request(dynamicURL, self.prepareImages.bind(self));
-    },
-
-    constructURL: function(){
+   function constructURL(){
       var base = 'http://api-capsul.herokuapp.com/users/1/test?'
       var latNumber = Number(MapController.getLatitude()).toPrecision(8);
       var lat = "lat=" + latNumber + "&";
@@ -86,6 +69,14 @@ var ImagesController = (function(){
       var url = base + lat + lng + timestamp;
       return url;
     }
+
+  return {
+    renderImages: function(){
+      var self = this;
+      var dynamicURL = constructURL();
+      Ajax.request(dynamicURL, prepareImages);
+    }
+
   }
 })();
 
@@ -118,39 +109,69 @@ function ImageBundle() {
 }
 
 //Model for single image
-function Image(content,url,html) {
-  this.content = content,
+//This threw the worst fucking bug ever when the function was named 'Image'
+//therefore, this function will be called fuckinballs from now on.
+function fuckinballs(contents,url,html) {
+  this.contents = contents,
   this.url = url,
   this.html = html
 }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 // Morgan's DateHandler Code
-var DateHandler = (function(){
-  return {
+// var DateHandler = (function(){
+//   return {
 
-   validatesTime: function(event) {
-    var date = document.querySelector('[type=date]').value
-    var twoDays = Date.now() - 172800000
-    var miliSecondDate = new Date(date).getTime()
-    var lat = map.center.k
-    var lng = map.center.B
+//    validatesTime: function(event) {
+//     var date = document.querySelector('[type=date]').value
+//     var twoDays = Date.now() - 172800000
+//     var miliSecondDate = new Date(date).getTime()
+//     var lat = map.center.k
+//     var lng = map.center.B
 
-    if (miliSecondDate < twoDays){
-      $("#map-canvas").hide()
-      init(lat,lng,miliSecondDate)
-    }
-    else{
-      alert('We Can Only Travel Back in Time...now ;)')
-      }
-    },
+//     if (miliSecondDate < twoDays){
+//       $("#map-canvas").hide()
+//       init(lat,lng,miliSecondDate)
+//     }
+//     else{
+//       alert('We Can Only Travel Back in Time...now ;)')
+//       }
+//     },
 
-    showMap: function(){
-      $("#map-canvas").show()
-    }
-  }
-})();
+//     showMap: function(){
+//       $("#map-canvas").show()
+//     }
+//   }
+// })();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //END OF PRODUCTION CODE
 //-----------------------------------------------------------------------

@@ -1,26 +1,17 @@
 
 //Will hold the map model
-var MapHolder = (function(){
-  return {}
-})()
+var MapHolder = {};
 
 //Map Controller Below
 var MapController = (function(){
 
-  return {
-
-    enableMap: function(){
-      this.makeGoogleMap();
-      this.listenForLocationChange();
-    },
-
-    makeGoogleMap: function(event) {
+    function makeGoogleMap() {
       var myOptions = {
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         zoom: 4,
         center: new google.maps.LatLng(37.1, -95.7),
         mapTypeControl: false,
-        panControl: false,
+        panControl: true,
         zoomControl: true,
         zoomControlOptions: {
           style: google.maps.ZoomControlStyle.SMALL
@@ -29,15 +20,27 @@ var MapController = (function(){
       };
 
       MapHolder.map = new google.maps.Map(document.getElementById('map-canvas'), myOptions)
-    },
+    }
 
-    listenForLocationChange: function(){
-      google.maps.event.addListener(MapHolder.map,"bounds_changed", this.updateBounds)
-    },
+    function listenForLocationChange(){
+      google.maps.event.addListener(MapHolder.map,"bounds_changed", updateBounds)
+    }
 
-    updateBounds: function(){
+    function updateBounds(){
       var bounds = MapHolder.map.getBounds();
+
+      //hacky. Need to fix but for now it works.
+      if (MapHolder.map.getZoom() !== 4) {
+        MapHolder.map.setZoom(14);
+      }
       SearchHolder.searchBox.setBounds(bounds);
+    }
+
+  return {
+
+    enableMap: function(){
+      makeGoogleMap();
+      listenForLocationChange();
     },
 
     getLatitude: function(){
@@ -47,7 +50,6 @@ var MapController = (function(){
     getLongitude: function(){
       return MapHolder.map.center.B;
     }
-
   }
 })()
 
