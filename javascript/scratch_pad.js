@@ -20,27 +20,30 @@ var SlideshowController = (function(){
     data: [
       { type: "image",
         createdAt: "04/25/2013 at 4:35pm",
-        link: "images/bg_01.jpg",
+        link: "images/bg_05.jpg",
         author: "@schmee",
         placename: "San Francisco",
         caption: "Things white people like. And then there's an Asian in the middle.",
-        hashtags: ["#innapropriate", "#letsbereal", "#idratherhavecake"]
+        hashtags: ["#innapropriate", "#letsbereal", "#idratherhavecake"],
+        textcolor: "#FFFFFF"
       },
       { type: "image",
         createdAt: "06/13/1973 at 3:20pm",
         link: "images/bg_06.jpg",
         author: "@grampie",
-        placename: "Walla Walla, Washington ",
+        placename: "Paris",
         caption: "Happy Birthday to this George Clooney Doppelganger",
-        hashtags: ["#astarisborn", "#tbt", "#timeforcake"]
+        hashtags: ["#astarisborn", "#tbt", "#timeforcake"],
+        textcolor: "#444444"
       },
       { type: "image",
         createdAt: "12/25/2075 at Noon",
         link: "images/bg_09.jpg",
         author: "@bertie",
-        placename: "Las Vegas",
+        placename: "Washington DC",
         caption: "Things asians people like. And day clubs after they were cool.",
-        hashtags: ["#yourpeople", "#mypeople", "#youdoyou"]
+        hashtags: ["#yourpeople", "#mypeople", "#youdoyou"],
+        textcolor: "#444444"
       },
     ]
   }
@@ -53,8 +56,6 @@ var SlideshowController = (function(){
     },
 
     compileSlides: function(data){
-      console.log("here's your gaddammed sriides.");
-      console.log(data);
       var slideBundle = new SlideBundle();
       data.forEach(function(slide){
         slideBundle.collection.push(new Slide(slide));
@@ -67,7 +68,9 @@ var SlideshowController = (function(){
       var self = this;
       bundle.forEach(function(slide) {
         slide.html = self.createHTML(slide);
-        SlideView.render(slide.html, slide.link);
+        console.log('this is the slide text color inside the renderHTML function')
+        console.log(slide.textcolor);
+        SlideView.render(slide.html, slide.link, slide.textcolor);
       })
     },
 
@@ -82,7 +85,8 @@ var SlideshowController = (function(){
         author: slide.author,
         placename: slide.placename,
         caption: slide.caption,
-        hashtags: slide.hashtags
+        hashtags: slide.hashtags,
+        textcolor: slide.textcolor
       };
       return template(info);
     }
@@ -93,11 +97,14 @@ var SlideshowController = (function(){
 //View Below
 var SlideView = (function(){
   return {
-    render: function(slideHTML, slideBgImage){
+    render: function(slideHTML, slideBgImage, slideTextColor){
+      console.log('this is the slide text color')
+      console.log(slideTextColor);
       $('#slideshow').append(slideHTML);
       $('#slideshow .slide').last().css({
                                      'background-image' : 'url('+slideBgImage+')',
-                                     'opacity' : '1'
+                                     'opacity' : '1',
+                                     'color' : slideTextColor
                                      });
     }
   }
@@ -124,7 +131,8 @@ function Slide(slide) {
   this.author = slide.author,
   this.placename = slide.placename,
   this.caption = slide.caption,
-  this.hashtags = slide.hashtags
+  this.hashtags = slide.hashtags,
+  this.textcolor = slide.textcolor
 };
 
 $( document ).ready(SlideshowController.prepareSlides.bind(SlideshowController));

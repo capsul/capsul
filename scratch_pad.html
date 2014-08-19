@@ -10,24 +10,25 @@
   <script src="javascript/scratch_pad.js"></script>
 <!-- <script src="javascript/map.js"></script> -->
 
-  <link href='http://fonts.googleapis.com/css?family=Quicksand:400,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Signika:600,300' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" type="text/css" href="reset.css">
   <link rel="stylesheet" href="scratch_pad.css">
 <!-- <link rel="stylesheet" href="map.css"> -->
 </head>
 
 <body>
+  <div id='wrapper'>
 
-  <div id="slideshow">
+    <div id="slideshow"></div>
 
+    <header>
+      <img src="images/capsule_icon_r.svg"/>
+      <p>Capsul<span>social media by time and place</span></p>
+    </header>
+
+    <div id='control-bar'></div>
+    
   </div>
-
-  <header>
-    <img src="images/capsule_icon_r.svg"/>
-
-    <p>Capsul</p>
-  </header>
-
 </body>
 
 </html>
@@ -38,7 +39,7 @@
       <h1>{{placename}}</h1>
       <h2>{{createdAt}}</h2>
       <h3>{{caption}}</h3>
-      <h3>{{hashtags}}</h3>
+      <h3>{{#each hashtags}}{{this}}&nbsp;&nbsp;{{/each}}</h3>
     </div>
   </div>
 </script>
