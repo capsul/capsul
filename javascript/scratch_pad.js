@@ -100,7 +100,10 @@ var SlideView = (function(){
       console.log(slideHTML);
       console.log($(slideHTML));
       $('#slideshow').append(slideHTML);
-      $('#slideshow div').last().css("background-image", "url("+slideBgImage+")");
+      $('#slideshow .slide').last().css({
+                                     'background-image' : 'url('+slideBgImage+')',
+                                     'opacity' : '1'
+                                     });
     }
   }
 })()
