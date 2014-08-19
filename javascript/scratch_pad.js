@@ -97,12 +97,17 @@ var controlBarController = (function() {
   return{
     slideUp: function() {
       $(".button").click(function(){
-        $("#cb-wrapper").animate({
-          top:"0%"
-        }, "slow")
-      });
+              $("#cb-wrapper").animate({
+                    top:"0%"
+                  }, "slow");
+              $("#slideshow").animate({
+                opacity:"0"
+              }, "slow");
+              $("#map-canvas").fadeIn("slow");
+        });
+
     }
-    }
+  }
 }) ()
 
 //View Below
