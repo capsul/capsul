@@ -1,8 +1,7 @@
 $(document).ready(initialize);
 
-
 function initialize() {
-  $("#button").click(ImagesController.renderImages.bind(ImagesController));
+  $("#button").click(ImagesController.renderImages);
 }
 
 // Ajax Module to make ajax calls
@@ -21,43 +20,67 @@ var Ajax = (function(){
 var ImagesController = (function(){
 
   //Figure out how to make self equal ImagesController here
-  //so all methods have access to self
+  //So all methods have access to self.
+  //Not necessary but want to learn a technique to make things easier in the future.
   var self;
 
     function prepareImages(images){
+      console.log(images);
       var imageBundle = compileImages(images);
       ImageView.clearOldImages();
       renderHTML(imageBundle.collection);
     }
 
     function compileImages(images){
-      var imageBundle = new ImageBundle();
-      images.data.forEach(function(image){
-        imageBundle.collection.push(new fuckinballs(image.author,image.images.high_res));
+      var contentBundle = new ContentBundle();
+      var allContent = images.data.reduce(function(a,b){
+        return a.concat(b);
       })
-      Images.all.push(imageBundle);
-      return imageBundle;
+
+      allContent.forEach(function(object){
+        if (object.type === "image") {
+          var image = new ImageContent(object.author,object.images.high_res, object.type);
+          contentBundle.collection.push(image);
+        }
+        else {
+          var text = new TextContent(object.author,object.content,object.type);
+          contentBundle.collection.push(text);
+        }
+      })
+      Content.all.push(contentBundle);
+      return contentBundle;
     }
 
     function renderHTML(bundle){
-      bundle.forEach(function(image) {
-        image.html = createHTML(image);
-        ImageView.render(image.html);
+      bundle.forEach(function(pieceOfContent) {
+          pieceOfContent.html = createHTML(pieceOfContent);
+          ImageView.render(pieceOfContent.html);
       })
     }
 
-    function createHTML(image){
-      var source = $('#image-template').html();
-      var template = Handlebars.compile(source);
-      var info = {
-        image: image.content,
-        url: image.url
-      };
-      return template(info);
+    function createHTML(pieceOfContent){
+      if (pieceOfContent.type === "image") {
+        var source = $('#image-template').html();
+        var template = Handlebars.compile(source);
+        var info = {
+          image: pieceOfContent.content,
+          url: pieceOfContent.url
+        };
+        return template(info);
+      }
+      else {
+        var source = $('#text-template').html();
+        var template = Handlebars.compile(source);
+        var info = {
+          text: pieceOfContent.text,
+          username: pieceOfContent.username
+        };
+        return template(info);
+      }
     }
 
    function constructURL(){
-      var base = 'http://api-capsul.herokuapp.com/users/1/test?'
+      var base = 'http://api-capsul.herokuapp.com/users/1/media?'
       var latNumber = Number(MapController.getLatitude()).toPrecision(8);
       var lat = "lat=" + latNumber + "&";
       var lngNumber = Number(MapController.getLongitude()).toPrecision(8);
@@ -72,11 +95,9 @@ var ImagesController = (function(){
 
   return {
     renderImages: function(){
-      var self = this;
       var dynamicURL = constructURL();
       Ajax.request(dynamicURL, prepareImages);
     }
-
   }
 })();
 
@@ -97,24 +118,30 @@ var ImageView = (function(){
 //Models & Model Holders Below
 
 //holds all images from every API call ever made
-var Images = (function() {
+var Content = (function() {
   return {
     all: []
   }
 })()
 
 //holds all images from a single API call
-function ImageBundle() {
+function ContentBundle() {
   this.collection = [];
 }
 
 //Model for single image
 //This threw the worst fucking bug ever when the function was named 'Image'
 //therefore, this function will be called fuckinballs from now on.
-function fuckinballs(contents,url,html) {
+function ImageContent(contents,url,type) {
   this.contents = contents,
   this.url = url,
-  this.html = html
+  this.type = type
+}
+
+function TextContent(username,text,type){
+  this.username = username,
+  this.text = text,
+  this.type = type
 }
 
 
