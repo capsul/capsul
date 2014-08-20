@@ -1,0 +1,135 @@
+html, body {
+  height: 100%;
+}
+
+html{
+  background-color: #333333;
+  margin: 0;
+  padding: 0;
+  font-family: 'Signika', sans-serif;
+  font-weight: 300;
+}
+
+header {
+  color: #FFFFFF;
+  position: absolute;
+  width: 100%;
+  opacity: .65;
+  background-color: #000000;
+}
+
+header img {
+  width: 20px;
+  height: 40px;
+  margin: 10px 20px 10px 40px;
+}
+
+header p {
+  display: inline;
+  vertical-align: center;
+  position: relative;
+  top: -20px;
+  font-size: 32px;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+header p span {
+  font-weight: 300;
+  font-size: 24px;
+  vertical-align: center;
+  opacity: .7;
+  margin-left: 40px;
+  letter-spacing: 0px;
+}
+
+.logo {
+  display: inline-block;
+  width: 20px;
+  height: 40px;
+  margin: 10px;
+}
+
+.slide {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+}
+
+.slide-text {
+  margin: 100px 0 0 83px;
+}
+
+.slide-text h1 {
+  font-size: 50px;
+  margin-bottom: 30px;
+}
+
+.slide-text h3{
+  font-size: 22px;
+  font-weight: 300;
+  margin-top: 5px;
+}
+
+.txt-thin {
+  font-weight: 300;
+}
+
+#wrapper {
+  width: 100%;
+  height: 100%;
+  min-height: 550px;
+}
+
+#control-bar {
+  width: 100%;
+  height: 200px;
+  background-color: #000000;
+  opacity: .85;
+  position: relative;
+  top: 55%;
+
+}
+
+@-webkit-keyframes animate {
+  0% {
+    opacity:1;
+  }
+  16% {
+    opacity:1;
+  }
+  20% {
+    opacity:0;
+  }
+  96% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+
+#slideshow .slide {
+  -webkit-animation-name: animate;
+  -webkit-animation-timing-function: ease-in-out;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-duration: 25s;
+}
+
+#slideshow .slide:nth-of-type(1) {
+  -webkit-animation-delay: 20s;
+}
+
+#slideshow .slide:nth-of-type(2) {
+  -webkit-animation-delay: 15s;
+}
+#slideshow .slide:nth-of-type(3) {
+  -webkit-animation-delay: 10s;
+}
+#slideshow .slide:nth-of-type(4) {
+  -webkit-animation-delay: 5s;
+}
+#slideshow .slide:nth-of-type(5) {
+  -webkit-animation-delay: 0s;
+}
