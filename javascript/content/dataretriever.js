@@ -29,7 +29,7 @@ var DataRetriever = (function(){
 
   function renderContent(ajaxResponse){
     var content = parseData(ajaxResponse)
-    ImagesController.prepareImages(content.images);
+    PictureController.preparePictures(content.images);
     TextController.prepareText(content.text);
   }
 
@@ -46,6 +46,7 @@ var DataRetriever = (function(){
 
     ajaxData.forEach(function(item){
       if (item.type === "text") {
+        console.log(item);
         contentHolder.text.push(item);
       }
       else if (item.type === "image") {

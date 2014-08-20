@@ -1,47 +1,47 @@
-// Controller Below
-var ImagesController = (function(){
+  // Controller Below
+var PictureController = (function(){
 
-  function compileImages(images){
-    var imageBundle = new ImageBundle();
+  function compilePictures(pictures){
+    var pictureBundle = new PictureBundle();
 
-    images.forEach(function(item){
-        var image = new Picture(item.author,item.images.high_res);
-        imageBundle.collection.push(image);
+    pictures.forEach(function(item){
+        var picture = new Picture(item.author,item.images.high_res);
+        pictureBundle.collection.push(picture);
     })
-    Images.all.push(imageBundle);
-    return imageBundle;
+    Pictures.all.push(pictureBundle);
+    return pictureBundle;
   }
 
   return {
-    prepareImages: function(images){
-      var imageBundle = compileImages(images);
-      ImageView.clearOldImages();
-      ImageView.renderHTML(imageBundle.collection);
+    preparePictures: function(pictures){
+      var pictureBundle = compilePictures(pictures);
+      PictureView.clearOldPictures();
+      PictureView.renderHTML(pictureBundle.collection);
     }
   }
 })();
 
 //View Below
-var ImageView = (function(){
+var PictureView = (function(){
 
-  function createHTML(image){
+  function createHTML(picture){
     var source = $('#image-template').html();
     var template = Handlebars.compile(source);
     var info = {
-      username: image.content,
-      url: image.url
+      username: picture.content,
+      url: picture.url
     };
     return template(info);
   }
 
   return {
     renderHTML: function(bundle){
-      bundle.forEach(function(image) {
-        image.html = createHTML(image);
-        $('#content-container').append(image.html);
+      bundle.forEach(function(picture) {
+        picture.html = createHTML(picture);
+        $('#content-container').append(picture.html);
       })
     },
-    clearOldImages: function(){
+    clearOldPictures: function(){
       $('.image').remove();
     }
   }
@@ -51,15 +51,15 @@ var ImageView = (function(){
 //Models & Model Holders Below
 
 //holds all images from every API call ever made
-var Images = (function() {
+var Pictures = (function() {
   return {
     all: []
   }
 })()
 
 //holds all images from a single API call
-function ImageBundle() {
-  this.collection = [];
+function PictureBundle() {
+  this.collection = []
 }
 
 //Model for single image
