@@ -92,3 +92,38 @@ header p span {
 
 }
 
+@-webkit-keyframes animate {
+  0% {
+    opacity:1;
+  }
+  22% {
+    opacity:1;
+  }
+  33% {
+    opacity:0;
+  }
+  89% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+
+#slideshow .slide {
+  -webkit-animation-name: animate;
+  -webkit-animation-timing-function: ease-in-out;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-duration: 15s;
+}
+
+#slideshow .slide:nth-of-type(1) {
+  -webkit-animation-delay: 10s;
+}
+
+#slideshow .slide:nth-of-type(2) {
+  -webkit-animation-delay: 5s;
+}
+#slideshow .slide:nth-of-type(3) {
+  -webkit-animation-delay: 0s;
+}
