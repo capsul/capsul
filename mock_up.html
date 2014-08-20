@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Capsul</title>
+  <title>SCHMEE</title>
   <link rel="stylesheet" href="map.css">
   <link rel="stylesheet" href="mock_up.css">
   <link href='http://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
@@ -10,35 +10,68 @@
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
   <script src="javascript/libraries/handlebars_lib.js"></script>
+  <script src="javascript/scratch_pad.js"></script>
   <script src="javascript/map.js"></script>
   <script src="javascript/searchbox.js"></script>
   <script src="javascript/content/images.js"></script>
   <script src="javascript/content/text.js"></script>
   <script src="javascript/content/dataretriever.js"></script>
 
-<link href='http://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="mock_up.css">
-<link rel="stylesheet" href="map.css">
+ <link href='http://fonts.googleapis.com/css?family=Signika:600,300' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="reset.css">
+  <link rel="stylesheet" href="scratch_pad.css">
 </head>
 
   <body>
 
-   <div class = "schmee"> <input id="pac-input" class="search-box" type="text" placeholder="Search for a place">
-     <input id="datepicker" class = "date-box" type="date"  name ="date">
-      <input type ="submit" id="button" value ="Time Travel">
+<div id='wrapper'>
+
+    <div id="slideshow"></div>
+
+    <header>
+      <img src="images/capsul_icon_r.svg"/>
+      <p>Capsul<span>social media by time and place</span></p>
+    </header>
+
+    <div id='cb-wrapper'>
+      <div id='control-bar'>
+
+        <div class='cb-module date-picker'>
+          <h4>PICK A DAY</h4>
+            <img class="icon" src="images/calendar_icon_r.svg">
+            <input id="datepicker" class = "date-box" type="date"  name ="date" placeholder="MM / DD / YYYY">
+        </div>
+
+        <div class='cb-module cbm-mid search-box'>
+          <h4>FIND A PLACE</h4>
+            <img class="icon" src="images/globe_icon_r.svg">
+            <input id="pac-input" class="search-box" type="text" placeholder="Where should we go?">
+        </div>
+
+        <div class='cb-module cbm-flex-sm submit'>
+          <input type ="submit" id="button" value="">
+        </div>
+      </div>
+      <div id="map-canvas"></div>
     </div>
-
-    <div id="map-canvas"></div>
-      <!-- if we do input type "date" it gives the calendar as well -->
-
-
     <ul class="rig columns-3" id="content-container">
     </ul>
-
+  </div>
 
   </body>
 
 </html>
+
+<script id='slide-template' type="text/x-handlebars-template">
+  <div class='slide'>
+    <div class='slide-text'>
+      <h1>{{placename}}</h1>
+      <h2>{{createdAt}}</h2>
+      <h3>{{caption}}</h3>
+      <h3>{{#each hashtags}}{{this}}&nbsp;&nbsp;{{/each}}</h3>
+    </div>
+  </div>
+</script>
 
 <script id="image-template" type="text/x-handlebars-template">
   <li class="image">
