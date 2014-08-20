@@ -52,6 +52,8 @@ var MapController = (function(){
   }
 })()
 
-google.maps.event.addDomListener(window, 'load', function(){
-  $('#button').on("click",MapController.enableMap)
-});
+google.maps.event.addDomListener(window, 'load', MapController.enableMap
+  // function(){
+  // $('#button').on("click",MapController.enableMap)
+// }
+);

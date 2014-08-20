@@ -103,7 +103,9 @@ var controlBarController = (function() {
               $("#slideshow").animate({
                 opacity:"0"
               }, "slow");
-              $("#map-canvas").fadeIn("slow");
+              $("#map-canvas").animate({
+                    opacity: "1"
+                  }, "slow");
         });
 
     }
