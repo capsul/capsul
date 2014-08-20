@@ -5,7 +5,6 @@ var TextController = (function(){
     var textBundle = new TextBundle();
 
     texts.forEach(function(item){
-      console.log(item);
         var text = new TextArticle(item.author,item.content);
         textBundle.collection.push(text);
     })
