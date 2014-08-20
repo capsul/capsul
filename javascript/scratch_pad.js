@@ -68,8 +68,6 @@ var SlideshowController = (function(){
       var self = this;
       bundle.forEach(function(slide) {
         slide.html = self.createHTML(slide);
-        console.log('this is the slide text color inside the renderHTML function')
-        console.log(slide.textcolor);
         SlideView.render(slide.html, slide.link, slide.textcolor);
       })
     },
@@ -98,8 +96,6 @@ var SlideshowController = (function(){
 var SlideView = (function(){
   return {
     render: function(slideHTML, slideBgImage, slideTextColor){
-      console.log('this is the slide text color')
-      console.log(slideTextColor);
       $('#slideshow').append(slideHTML);
       $('#slideshow .slide').last().css({
                                      'background-image' : 'url('+slideBgImage+')',
