@@ -273,6 +273,36 @@ ul.rig li p {
   color: #999;
 }
 
+ul li.image{
+  background-color: green;
+}
+ul li.info_bar {
+  background-color: orange;
+}
+ul li.text{
+  background: white;
+  opacity: .8;
+  border: 1px solid #ddd;
+  height: 425px;
+  padding-top: 5%;
+  /*this is when the page is full browser...we are going to have to find a better more responsive solution to this tomorrow*/
+}
+ul li.text h1 {
+  text-align: center;
+  padding-top: 30%
+}
+li h3{
+  background-color: pink;
+}
+
+
+
+
+
+
+
+
+
 /* class for 3 columns */
 ul.rig.columns-3 li {
   width: 30.83%; /* this value + 2.5 should = 33% */

@@ -73,14 +73,21 @@
 
 <script id="image-template" type="text/x-handlebars-template">
   <li class="image">
-    <h3>{{username}}</h3>
+    <div class="info_bar">
+    <h4>{{username}}</h4>
+    <h2>{{caption}}</h2>
+    <h3>{{hashtags}}</h3>
+    </div>
+    // unsure of hashtag logic
     <img src="{{url}}"/>
   </li>
 </script>
 
 <script id="text-template" type="text/x-handlebars-template">
   <li class="text">
-    <h3>{{username}}</h3>
+  <img src="{{tweetLogo}}"/>
+  // still have to figure this out
+    <h3>From @{{username}}</h3>
     <h1>{{content}}</h1>
   </li>
 </script>

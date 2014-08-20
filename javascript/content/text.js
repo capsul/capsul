@@ -28,6 +28,7 @@ var TextView = (function(){
     var source = $('#text-template').html();
     var template = Handlebars.compile(source);
     var info = {
+      // tweetLogo: 'images/tweet_icon.png'
       content: article.content,
       username: article.username
     };
