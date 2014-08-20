@@ -1,17 +1,3 @@
- // ../images/bg_01.jpg
- // ../images/bg_02.jpg
- // ../images/bg_03.jpg
- // ../images/bg_04.jpg
- // ../images/bg_05.jpg
- // ../images/bg_05.jpg
- // ../images/bg_06.jpg
- // ../images/bg_07.jpg
- // ../images/bg_08.jpg
- // ../images/bg_09.jpg
- // ../images/bg_10.jpg
-
-
-
 
 //Controller Below
 var SlideshowController = (function(){
@@ -68,6 +54,8 @@ var SlideshowController = (function(){
       var self = this;
       bundle.forEach(function(slide) {
         slide.html = self.createHTML(slide);
+        console.log('this is the slide text color inside the renderHTML function')
+        console.log(slide.textcolor);
         SlideView.render(slide.html, slide.link, slide.textcolor);
       })
     },
@@ -91,11 +79,31 @@ var SlideshowController = (function(){
   }
 })(SlideView);
 
+var controlBarController = (function() {
+  return{
+    slideUp: function() {
+      $("#button").click(function(){
+              $("#cb-wrapper").animate({
+                    top:"0%"
+                  }, "slow");
+              $("#slideshow").animate({
+                opacity:"0"
+              }, "slow");
+              $("#map-canvas").animate({
+                    opacity: "1"
+                  }, "slow");
+        });
+
+    }
+  }
+}) ()
 
 //View Below
 var SlideView = (function(){
   return {
     render: function(slideHTML, slideBgImage, slideTextColor){
+      console.log('this is the slide text color')
+      console.log(slideTextColor);
       $('#slideshow').append(slideHTML);
       $('#slideshow .slide').last().css({
                                      'background-image' : 'url('+slideBgImage+')',
@@ -131,4 +139,10 @@ function Slide(slide) {
   this.textcolor = slide.textcolor
 };
 
-$( document ).ready(SlideshowController.prepareSlides.bind(SlideshowController));
+
+$(document).ready(SlideshowController.prepareSlides.bind(SlideshowController)
+  )
+
+$(document).ready(function(){
+  controlBarController.slideUp();
+})

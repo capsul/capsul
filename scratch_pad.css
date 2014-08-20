@@ -3,7 +3,7 @@ html, body {
 }
 
 html{
-  background-color: #333333;
+  background-color: #999999;
   margin: 0;
   padding: 0;
   font-family: 'Signika', sans-serif;
@@ -183,36 +183,6 @@ input:focus {
   background-color: rgba(255, 255, 255, 1);
 }
 
-
-/* GOOGLE MAPS AUTOCOMPLETE STYLING */
-/*
-#pac-input {
-  position: relative;
-  top: 15px;
-  left: 50px;
-  background-color: rgba(255, 255, 255, .25);
-  transition: background-color 0.5s ease;
-  padding: 0 15px;
-  width: 80%;
-  height: 50px;
-  font-family: 'Signika', sans-serif;
-  font-weight: 300;
-  font-size: 22px;
-  text-overflow: ellipsis;
-  border-radius: 3px;
-  border: none;
-}
-
-#pac-input:hover {
-  background-color: rgba(255, 255, 255, 1);
-}
-
-#pac-input:focus {
-  border-color: #4d90fe;
-  background-color: rgba(255, 255, 255, 1);
-}
-*/
-
 .pac-container {
   background-color: rgba(255, 255, 255, .95);
   border-radius: 0px 0px 5px 5px;
@@ -227,7 +197,8 @@ input:focus {
 }
 
 #map-canvas {
-  height: 200px;
+  height: 250px;
+  opacity: 0;
 }
 
 
