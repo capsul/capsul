@@ -94,8 +94,21 @@ var controlBarController = (function() {
                   }, "slow");
         });
 
+    },
+    scrollImages: function(event) {
+      var fromTop = $(window).scrollTop(),
+      url = null
+      if (fromTop < 4000) {
+        url = 'images/sunrise.jpg';
+      } else if (fromTop < 6000 ){
+        url = 'images/cloudsaves.png';
+      }
+      else {
+        url="images/night.jpg";
+      }
+      $('#content-container').css('background', 'url(' + url + ')');
+      }
     }
-  }
 }) ()
 
 //View Below
@@ -145,4 +158,5 @@ $(document).ready(SlideshowController.prepareSlides.bind(SlideshowController)
 
 $(document).ready(function(){
   controlBarController.slideUp();
+  $(window).scroll(controlBarController.scrollImages)
 })
