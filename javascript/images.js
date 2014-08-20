@@ -1,91 +1,45 @@
-$(document).ready(initialize);
-
-
-function initialize() {
-  $("#button").click(ImagesController.renderImages.bind(ImagesController));
-}
-
-// Ajax Module to make ajax calls
-var Ajax = (function(){
-      return {
-        request: function(url, callback){
-          var request = $.ajax({
-          url:url
-        })
-          request.done(callback);
-        }
-      }
-})();
-
 // Controller Below
 var ImagesController = (function(){
 
-  //Figure out how to make self equal ImagesController here
-  //so all methods have access to self
-  var self;
+  function compileImages(images){
+    var imageBundle = new ImageBundle();
 
-    function prepareImages(images){
-      var imageBundle = compileImages(images);
-      ImageView.clearOldImages();
-      renderHTML(imageBundle.collection);
-    }
-
-    function compileImages(images){
-      var imageBundle = new ImageBundle();
-      images.data.forEach(function(image){
-        imageBundle.collection.push(new fuckinballs(image.author,image.images.high_res));
-      })
-      Images.all.push(imageBundle);
-      return imageBundle;
-    }
-
-    function renderHTML(bundle){
-      bundle.forEach(function(image) {
-        image.html = createHTML(image);
-        ImageView.render(image.html);
-      })
-    }
-
-    function createHTML(image){
-      var source = $('#image-template').html();
-      var template = Handlebars.compile(source);
-      var info = {
-        image: image.content,
-        url: image.url
-      };
-      return template(info);
-    }
-
-   function constructURL(){
-      var base = 'http://api-capsul.herokuapp.com/users/1/test?'
-      var latNumber = Number(MapController.getLatitude()).toPrecision(8);
-      var lat = "lat=" + latNumber + "&";
-      var lngNumber = Number(MapController.getLongitude()).toPrecision(8);
-      var lng = "lng=" + lngNumber + "&";
-      var date = document.querySelector('[type=date]').value;
-      var unixTimestamp = "time=" + (new Date(date).getTime());
-      var timestamp = unixTimestamp.substr(0,15);
-
-      var url = base + lat + lng + timestamp;
-      return url;
-    }
+    images.forEach(function(item){
+        var image = new Picture(item.author,item.images.high_res);
+        imageBundle.collection.push(image);
+    })
+    Images.all.push(imageBundle);
+    return imageBundle;
+  }
 
   return {
-    renderImages: function(){
-      var self = this;
-      var dynamicURL = constructURL();
-      Ajax.request(dynamicURL, prepareImages);
+    prepareImages: function(images){
+      var imageBundle = compileImages(images);
+      ImageView.clearOldImages();
+      ImageView.renderHTML(imageBundle.collection);
     }
-
   }
 })();
 
-
 //View Below
 var ImageView = (function(){
+
+  function createHTML(image){
+    var source = $('#image-template').html();
+    var template = Handlebars.compile(source);
+    var info = {
+      username: image.content,
+      url: image.url
+    };
+    return template(info);
+  }
+
   return {
-    render: function(html){
-      $('#content-container').append(html);
+    renderHTML: function(bundle){
+      bundle.forEach(function(image) {
+        image.html = createHTML(image);
+        $('#content-container').append(image.html);
+      })
     },
     clearOldImages: function(){
       $('.image').remove();
@@ -109,10 +63,8 @@ function ImageBundle() {
 }
 
 //Model for single image
-//This threw the worst fucking bug ever when the function was named 'Image'
-//therefore, this function will be called fuckinballs from now on.
-function fuckinballs(contents,url,html) {
-  this.contents = contents,
+function Picture(username,url,html) {
+  this.username = username,
   this.url = url,
   this.html = html
 }
@@ -155,50 +107,3 @@ function fuckinballs(contents,url,html) {
 //     }
 //   }
 // })();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//END OF PRODUCTION CODE
-//-----------------------------------------------------------------------
-
-
-//get all content from APIs
-//randomize content
-//render content on page
-//after that is done, resolve and make new batch of API calls
-//add an eventlistener for scrolling
-//once a user scrolls, resolves the promise and render the next set of content
-
-
-// $(document).on("scroll", createPromiseChain)
-//   $(window).scroll(function() {
-//    if($(window).scrollTop() + $(window).height() == $(document).height()) {
-//        console.log("bottom heeeere");
-//    }
-// });
-// }
-
-//Promise class
-// function Promise() {
-//   this.holder = Q.defer();
-// }
-
-// function createPromiseChain(){
-//   var promise = new Promise()
-//   console.log(promise.holder.promise)
-// }
