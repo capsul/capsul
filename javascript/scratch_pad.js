@@ -96,7 +96,7 @@ var SlideshowController = (function(){
 var controlBarController = (function() {
   return{
     slideUp: function() {
-      $(".button").click(function(){
+      $("#button").click(function(){
               $("#cb-wrapper").animate({
                     top:"0%"
                   }, "slow");

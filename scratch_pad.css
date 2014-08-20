@@ -114,12 +114,6 @@ position: fixed;
   margin-right: 80px;
 }
 
-#map-canvas {
-  /*display: none;*/
-  background-color:pink;
-  height: 200px;
-  display: none;
-}
 
 
 /* #button {
