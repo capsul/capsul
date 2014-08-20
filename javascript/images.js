@@ -1,8 +1,7 @@
 $(document).ready(initialize);
 
-
 function initialize() {
-  $("#button").click(ImagesController.renderImages.bind(ImagesController));
+  $("#button").click(ImagesController.renderImages);
 }
 
 // Ajax Module to make ajax calls
@@ -27,37 +26,27 @@ var ImagesController = (function(){
     function prepareImages(images){
       var imageBundle = compileImages(images);
       ImageView.clearOldImages();
-      renderHTML(imageBundle.collection);
+      ImageView.renderHTML(imageBundle.collection);
     }
 
     function compileImages(images){
+      console.log(images);
       var imageBundle = new ImageBundle();
-      images.data.forEach(function(image){
-        imageBundle.collection.push(new fuckinballs(image.author,image.images.high_res));
+      var data = images.data.reduce(function(a, b) {
+        return a.concat(b);
+      });
+      data.forEach(function(image){
+        if (image.type === "image") {
+          var image = new ImageContent(image.author,image.images.high_res);
+          imageBundle.collection.push(image);
+        }
       })
       Images.all.push(imageBundle);
       return imageBundle;
     }
 
-    function renderHTML(bundle){
-      bundle.forEach(function(image) {
-        image.html = createHTML(image);
-        ImageView.render(image.html);
-      })
-    }
-
-    function createHTML(image){
-      var source = $('#image-template').html();
-      var template = Handlebars.compile(source);
-      var info = {
-        image: image.content,
-        url: image.url
-      };
-      return template(info);
-    }
-
    function constructURL(){
-      var base = 'http://api-capsul.herokuapp.com/users/1/test?'
+      var base = 'http://api-capsul.herokuapp.com/users/1/media?'
       var latNumber = Number(MapController.getLatitude()).toPrecision(8);
       var lat = "lat=" + latNumber + "&";
       var lngNumber = Number(MapController.getLongitude()).toPrecision(8);
@@ -83,9 +72,23 @@ var ImagesController = (function(){
 
 //View Below
 var ImageView = (function(){
+
+    function createHTML(image){
+      var source = $('#image-template').html();
+      var template = Handlebars.compile(source);
+      var info = {
+        image: image.content,
+        url: image.url
+      };
+      return template(info);
+    }
+
   return {
-    render: function(html){
-      $('#content-container').append(html);
+    renderHTML: function(bundle){
+      bundle.forEach(function(image) {
+        image.html = createHTML(image);
+        $('#content-container').append(image.html);
+      })
     },
     clearOldImages: function(){
       $('.image').remove();
@@ -111,7 +114,7 @@ function ImageBundle() {
 //Model for single image
 //This threw the worst fucking bug ever when the function was named 'Image'
 //therefore, this function will be called fuckinballs from now on.
-function fuckinballs(contents,url,html) {
+function ImageContent(contents,url,html) {
   this.contents = contents,
   this.url = url,
   this.html = html
