@@ -53,7 +53,8 @@ var MapController = (function(){
   }
 })()
 
-google.maps.event.addDomListener(window, 'load', MapController.enableMap.bind(MapController));
+
+google.maps.event.addDomListener(window, 'load', MapController.enableMap);
 
 
 
@@ -121,3 +122,4 @@ google.maps.event.addDomListener(window, 'load', MapController.enableMap.bind(Ma
   //   });
 
   // };
+

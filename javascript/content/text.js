@@ -5,7 +5,7 @@ var TextController = (function(){
     var textBundle = new TextBundle();
 
     texts.forEach(function(item){
-        var text = new TextArticle(item.author,item.content);
+        var text = new TextArticle(item.author,item.content,item.hashtags);
         textBundle.collection.push(text);
     })
     AllText.all.push(textBundle);
@@ -63,8 +63,9 @@ function TextBundle() {
 }
 
 //Model for single image
-function TextArticle(username,content,html) {
-  this.username = username,
+function TextArticle(author,content,hashtags,html) {
+  this.author = author,
   this.content = content,
+  this.hashtags = hashtags,
   this.html = html
 }
