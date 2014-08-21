@@ -89,6 +89,7 @@ var controlBarController = (function() {
               $("#slideshow").animate({
                 opacity:"0"
               }, "slow");
+              $("#map-canvas").css("visibility", "visible");
               $("#map-canvas").animate({
                     opacity: "1"
                   }, "slow");
@@ -106,10 +107,10 @@ var SlideView = (function(){
       console.log(slideTextColor);
       $('#slideshow').append(slideHTML);
       $('#slideshow .slide').last().css({
-                                     'background-image' : 'url('+slideBgImage+')',
-                                     'opacity' : '1',
-                                     'color' : slideTextColor
-                                     });
+       'background-image' : 'url('+slideBgImage+')',
+       'opacity' : '1',
+       'color' : slideTextColor
+       });
     }
   }
 })()

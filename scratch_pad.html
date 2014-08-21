@@ -21,28 +21,29 @@
 </head>
 
 <body>
-  <div id='wrapper'>
+  <div id="slideshow"></div>
 
-    <div id="slideshow"></div>
 
+  <div id="controls">
     <header>
       <img src="images/capsul_icon_r.svg"/>
       <p>Capsul<span>social media by time and place</span></p>
     </header>
+
 
     <div id='cb-wrapper'>
       <div id='control-bar'>
 
         <div class='cb-module date-picker'>
           <h4>PICK A DAY</h4>
-            <img class="icon" src="images/calendar_icon_r.svg">
-            <input id="datepicker" class = "date-box" type="date"  name ="date" placeholder="MM / DD / YYYY">
+          <img class="icon" src="images/calendar_icon_r.svg">
+          <input id="datepicker" class="date-box" type="date" name="date">
         </div>
 
         <div class='cb-module cbm-mid search-box'>
           <h4>FIND A PLACE</h4>
-            <img class="icon" src="images/globe_icon_r.svg">
-            <input id="pac-input" class="search-box" type="text" placeholder="Where should we go?">
+          <img class="icon" src="images/globe_icon_r.svg">
+          <input id="pac-input" class="search-box" type="text" placeholder="Where should we go?">
         </div>
 
         <div class='cb-module cbm-flex-sm submit'>
@@ -51,19 +52,55 @@
       </div>
       <div id="map-canvas"></div>
     </div>
-    
   </div>
+  <div id='viewer-wrapper'>
+
+    <ul class='rig columns-3' id='content-container'>
+      <li>thing</li>
+      <li>thing</li>
+      <li>thing</li>
+      <li>thing</li>
+      <li>thing</li>
+      <li>thing</li>
+      <li>thing</li>
+      <li>thing</li>
+      <li>thing</li>
+      <li>thing</li>
+      <li>thing</li>
+      <li>thing</li>
+      <li>thing</li>
+      <li>thing</li>
+    </ul>
+
+  </div>
+
 </body>
 
 </html>
 
 <script id='slide-template' type="text/x-handlebars-template">
-  <div class='slide'>
-    <div class='slide-text'>
-      <h1>{{placename}}</h1>
-      <h2>{{createdAt}}</h2>
-      <h3>{{caption}}</h3>
-      <h3>{{#each hashtags}}{{this}}&nbsp;&nbsp;{{/each}}</h3>
-    </div>
-  </div>
+<div class='slide'>
+<div class='slide-text'>
+<h1>{{placename}}</h1>
+<h2>{{createdAt}}</h2>
+<h3>{{caption}}</h3>
+<h3>{{#each hashtags}}{{this}}&nbsp;&nbsp;{{/each}}</h3>
+</div>
+</div>
 </script>
+
+<script id="image-template" type="text/x-handlebars-template">
+<li class="image">
+<h3>{{username}}</h3>
+<img src="{{url}}"/>
+</li>
+</script>
+
+<script id="text-template" type="text/x-handlebars-template">
+<li class="text">
+<h3>{{username}}</h3>
+<h1>{{content}}</h1>
+</li>
+</script>
+
+
