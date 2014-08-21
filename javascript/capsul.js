@@ -99,23 +99,22 @@ var SlideshowController = (function(){
 var controlBarController = (function() {
   return{
     slideUp: function() {
-      $("#button").click(function(){
-              console.log("button click");
-              $("#cb-wrapper").animate({
-                    top:"0%"
-                  }, "slow");
-              $("#slideshow").animate({
-                opacity:"0"
-              }, "slow");
-              $("#map-canvas").css("visibility", "visible");
-              $("#map-canvas").animate({
-                    opacity: "1"
-                  }, "slow");
+      $("#button").click(function() {
+        console.log("button click");
+        $("#cb-wrapper").animate({
+          top:"0%"
+        }, "slow");
+        $("#slideshow").fadeOut( 750, function() { 
+          $( this ).remove() 
         });
-
+        $("#map-canvas").css("visibility", "visible");
+        $("#map-canvas").animate({
+          opacity: "1"
+        }, "slow");
+      });
     }
   }
-}) ()
+})()
 
 //View Below
 var SlideView = (function(){
