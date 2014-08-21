@@ -9,14 +9,16 @@ var PictureController = (function(){
         pictureBundle.collection.push(picture);
     })
     Pictures.all.push(pictureBundle);
+
     return pictureBundle;
   }
 
   return {
     preparePictures: function(pictures){
       var pictureBundle = compilePictures(pictures);
-      PictureView.clearOldPictures();
-      PictureView.renderHTML(pictureBundle.collection);
+      $(ContentArea).trigger("update", [pictureBundle.collection])
+      // PictureView.clearOldPictures();
+      // PictureView.renderHTML(pictureBundle.collection);
     }
   }
 })();
@@ -63,47 +65,16 @@ function PictureBundle() {
 }
 
 //Model for single image
-function Picture(username,url,html) {
+function Picture(username,url,html,logo,hashtag) {
+
   this.username = username,
   this.url = url,
-  this.html = html
+  this.html = html,
+  this.logo = "https://www.seoclerk.com/pics/222129-1r8o5m1400449246.png",
+  this.hashtag = "@testTag"
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Morgan's DateHandler Code
-// var DateHandler = (function(){
-//   return {
-
-//    validatesTime: function(event) {
-//     var date = document.querySelector('[type=date]').value
-//     var twoDays = Date.now() - 172800000
-//     var miliSecondDate = new Date(date).getTime()
-//     var lat = map.center.k
-//     var lng = map.center.B
-
-//     if (miliSecondDate < twoDays){
-//       $("#map-canvas").hide()
-//       init(lat,lng,miliSecondDate)
-//     }
-//     else{
-//       alert('We Can Only Travel Back in Time...now ;)')
-//       }
-//     },
-
-//     showMap: function(){
-//       $("#map-canvas").show()
-//     }
-//   }
-// })();
+//Event Listner in the content area
+ContentArea = (function() {
+  return {}
+})()

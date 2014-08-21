@@ -15,6 +15,10 @@
   <script src="javascript/content/images.js"></script>
   <script src="javascript/content/text.js"></script>
   <script src="javascript/content/dataretriever.js"></script>
+  <script src="javascript/libraries/q.js"></script>
+  <script src="http://fb.me/react-0.11.1.js"></script>
+  <script src="http://fb.me/JSXTransformer-0.11.1.js"></script>
+  <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
 
 <link href='http://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="mock_up.css">
@@ -31,25 +35,99 @@
     <div id="map-canvas"></div>
       <!-- if we do input type "date" it gives the calendar as well -->
 
-
+    <div id="image-container">
+    </div>
     <ul class="rig columns-3" id="content-container">
     </ul>
 
-
   </body>
-
 </html>
 
-<script id="image-template" type="text/x-handlebars-template">
-  <li class="image">
-    <h3>{{username}}</h3>
-    <img src="{{url}}"/>
-  </li>
+
+<script type="text/jsx">
+  /** @jsx React.DOM */
+
+var Logo = React.createClass({
+  render: function(){
+    return (
+      <div className="logo">
+        <img src={this.props.data} height="20px" width="20px"/>
+      </div>
+    )
+  }
+});
+
+var Username = React.createClass({
+  render: function(){
+    return (
+      <div className="username">
+        <h3>{this.props.data}</h3>
+      </div>
+    )
+  }
+});
+
+var Photo = React.createClass({
+  render: function() {
+    return (
+      <div className="photo">
+        <img src={this.props.data} height="400px" width="400px"/>
+      </div>
+    )
+  }
+});
+
+var Hashtag = React.createClass({
+  render: function(){
+    return (
+      <div className="hashtag">
+        {this.props.data}
+      </div>
+    )
+  }
+});
+
+var PhotoBox = React.createClass({
+  render: function() {
+    var picture = this.props.picture
+    return (
+      <div className="photobox">
+        <Logo data={picture.logo} />
+        <Username data={picture.username} />
+        <Photo data={picture.url} />
+        <Hashtag data={picture.hashtag} />
+      </div>
+    )
+  }
+});
+
+var PhotoBoxList = React.createClass({
+  getInitialState: function() {
+    return { photos: [] }
+  },
+
+  render: function(){
+    var photoBoxes = []
+    this.state.photos.forEach(function(photobox) {
+      photoBoxes.push(PhotoBox({picture: photobox}))
+    })
+    return (
+      <div className="photoBoxList">
+        {photoBoxes}
+      </div>
+    )
+  },
+
+  componentDidMount: function() {
+    $(ContentArea).on("update",function(event,data){
+      this.setState({photos:data})
+    }.bind(this));
+  }
+});
+
+React.renderComponent(
+  <PhotoBoxList />,
+  document.getElementById("image-container")
+)
 </script>
 
-<script id="text-template" type="text/x-handlebars-template">
-  <li class="text">
-    <h3>{{username}}</h3>
-    <h1>{{content}}</h1>
-  </li>
-</script>
