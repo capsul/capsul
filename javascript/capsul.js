@@ -83,6 +83,7 @@ var controlBarController = (function() {
   return{
     slideUp: function() {
       $("#button").click(function(){
+              console.log("button click");
               $("#cb-wrapper").animate({
                     top:"0%"
                   }, "slow");
