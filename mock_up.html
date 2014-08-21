@@ -119,8 +119,8 @@ var PhotoBoxList = React.createClass({
   },
 
   componentDidMount: function() {
-    $(ContentArea).on("update",function(event,data){
-      this.setState({photos:data})
+    $(Pictures).on("update",function(){
+      this.setState({ photos: Pictures.all() })
     }.bind(this));
   }
 });
