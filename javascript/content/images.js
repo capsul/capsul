@@ -5,7 +5,7 @@ var PictureController = (function(){
     var pictureBundle = new PictureBundle();
 
     pictures.forEach(function(item){
-        var picture = new Picture(item.author,item.images.high_res);
+        var picture = new Picture(item.author,item.images.high_res,item.hashtags);
         pictureBundle.collection.push(picture);
     })
     Pictures.all.push(pictureBundle);
@@ -63,9 +63,10 @@ function PictureBundle() {
 }
 
 //Model for single image
-function Picture(username,url,html) {
-  this.username = username,
+function Picture(author,url,hashtags,html) {
+  this.author = author,
   this.url = url,
+  this.hashtags = hashtags,
   this.html = html
 }
 

@@ -46,7 +46,6 @@ var DataRetriever = (function(){
 
     ajaxData.forEach(function(item){
       if (item.type === "text") {
-        console.log(item);
         contentHolder.text.push(item);
       }
       else if (item.type === "image") {
