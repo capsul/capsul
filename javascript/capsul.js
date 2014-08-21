@@ -120,8 +120,6 @@ var controlBarController = (function() {
 var SlideView = (function(){
   return {
     render: function(slideHTML, slideBgImage, slideTextColor){
-      console.log('this is the slide text color')
-      console.log(slideTextColor);
       $('#slideshow').append(slideHTML);
       $('#slideshow .slide').last().css({
        'background-image' : 'url('+slideBgImage+')',

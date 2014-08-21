@@ -42,7 +42,7 @@ var TextView = (function(){
       })
     },
     clearOldText: function(){
-      $('.text').remove();
+      $('.tile.tweet').remove();
     }
   }
 })()

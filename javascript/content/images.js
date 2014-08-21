@@ -42,7 +42,7 @@ var PictureView = (function(){
       })
     },
     clearOldPictures: function(){
-      $('.image').remove();
+      $('.tile.insta').remove();
     }
   }
 })()
