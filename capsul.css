@@ -11,6 +11,7 @@ html{
 }
 
 header {
+  height: 62px;
   color: #FFFFFF;
   width: 100%;
   opacity: .65;

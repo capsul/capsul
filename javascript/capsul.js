@@ -3,7 +3,7 @@
 var SlideshowController = (function(){
 
     var backgroundSlides = {
-      
+
     data: [
       { type: "image",
         createdAt: "08/17/2013 at 8:18pm",
@@ -73,8 +73,6 @@ var SlideshowController = (function(){
       var self = this;
       bundle.forEach(function(slide) {
         slide.html = self.createHTML(slide);
-        console.log('this is the slide text color inside the renderHTML function')
-        console.log(slide.textcolor);
         SlideView.render(slide.html, slide.link, slide.textcolor);
       })
     },
