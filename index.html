@@ -38,13 +38,13 @@
 
         <div class='cb-module date-picker'>
           <h4>PICK A DAY</h4>
-          <img class="icon" src="images/calendar_icon_r.svg">
+          <img class="cb-icon" src="images/calendar_icon_r.svg">
           <input id="datepicker" class="date-box" type="date" name="date">
         </div>
 
         <div class='cb-module cbm-mid search-box'>
           <h4>FIND A PLACE</h4>
-          <img class="icon" src="images/globe_icon_r.svg">
+          <img class="cb-icon" src="images/globe_icon_r.svg">
           <input id="pac-input" class="search-box" type="text" placeholder="Where should we go?">
         </div>
 
@@ -56,14 +56,11 @@
     </div>
   </div>
 
-  <div id='viewer-wrapper'>
-
-    <ul class='rig columns-3' id='content-container'>
-
-    </ul>
-
+  <div id="granule-viewer">
+    <div id="content-container">
+    </div>
   </div>
-  
+
 </body>
 
 </html>
@@ -80,6 +77,27 @@
 </script>
 
 <script id="image-template" type="text/x-handlebars-template">
+  <div class="tile insta" style="background-image: url('{{url}}')">
+    <div class="icon instagram"></div>
+      <div class="infobox">
+      <h3>author {{author}}</h3>
+      <h4>tags {{#each hashtags}}{{this}}&nbsp;&nbsp;{{/each}}</h4>
+      </div>
+  </div>
+</script>
+
+<script id="text-template" type="text/x-handlebars-template">
+  <div class="tile tweet">
+    <div class="icon twitter"></div>
+    <h3>author {{author}}</h3>
+    <p>content {{content}}<p>
+    <h4>tags {{#each hashtags}}{{this}}&nbsp;&nbsp;{{/each}}</h4>
+  </div>
+</script>
+
+<!-- 
+
+<script id="image-template" type="text/x-handlebars-template">
 <li class="image">
 <h3>{{username}}</h3>
 <img src="{{url}}"/>
@@ -92,5 +110,5 @@
 <h1>{{content}}</h1>
 </li>
 </script>
-
+ -->
 

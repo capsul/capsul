@@ -135,18 +135,13 @@ header p span {
   flex: 1;
 }
 
-.cb-module .icon {
+.cb-module .cb-icon {
   opacity: .6;
   position: relative;
   top: 17px;
   width: 40px;
   height: 40px;
 }
-
-/*.cb-module .icon:hover{
-  opacity: 1;
-  cursor: pointer;
-}*/
 
 input {
   position: relative;
@@ -250,13 +245,13 @@ input:focus {
   0% {
     opacity:1;
   }
-  22% {
+  16% {
     opacity:1;
   }
-  33% {
+  20% {
     opacity:0;
   }
-  89% {
+  96% {
     opacity:0;
   }
   100% {
@@ -268,85 +263,123 @@ input:focus {
   -webkit-animation-name: animate;
   -webkit-animation-timing-function: ease-in-out;
   -webkit-animation-iteration-count: infinite;
-  -webkit-animation-duration: 15s;
+  -webkit-animation-duration: 25s;
 }
 
 #slideshow .slide:nth-of-type(1) {
-  -webkit-animation-delay: 10s;
+  -webkit-animation-delay: 20s;
 }
 
 #slideshow .slide:nth-of-type(2) {
-  -webkit-animation-delay: 5s;
+  -webkit-animation-delay: 15s;
 }
 #slideshow .slide:nth-of-type(3) {
+  -webkit-animation-delay: 10s;
+}
+#slideshow .slide:nth-of-type(4) {
+  -webkit-animation-delay: 5s;
+}
+#slideshow .slide:nth-of-type(5) {
   -webkit-animation-delay: 0s;
 }
 
-
-
-
-/* ----- Image grids ----- */
-ul.rig {
-  z-index: -25;
-  list-style: none;
-  font-size: 0px;
-  margin-left: -2.5%; /* should match li left margin */
+#granule-viewer {
+  position: relative;
+  top:400px;
+  background-image: url('images/bg.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% 105%;
+  background-position: 0px -40px;
 }
-ul.rig li {
+
+#content-container {
+  margin: 0 auto;
+  padding: 1vw 0;
+  width: 97%;
+}
+
+#granule-viewer div.tile {
+  background-color: rgba(200, 200, 200, .8);
+  height: 30vw;
+  width: 30vw;
   display: inline-block;
-  padding: 10px;
-  margin: 0 0 2.5% 2.5%;
-  background: #fff;
-  border: 1px solid #ddd;
-  font-size: 16px;
-  font-size: 1rem;
-  vertical-align: top;
-  box-shadow: 0 0 5px #ddd;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-}
-ul.rig li img {
-  max-width: 100%;
-  height: auto;
-  margin: 0 0 10px;
-}
-ul.rig li h3 {
-  margin: 0 0 5px;
-}
-ul.rig li p {
-  font-size: .9em;
-  line-height: 1.5em;
-  color: #999;
+  margin: 1vw;
+  background-size: cover;
+  overflow: hidden;
 }
 
-/* class for 3 columns */
-ul.rig.columns-3 li {
-  width: 30.83%; /* this value + 2.5 should = 33% */
+.icon {
+  position: relative;
+  top: 15px;
+  left: 15px;
+  width: 40px;
+  height: 40px;
+  opacity: .75;
+  border-radius: 50px;
+  background-color: #FFFFFF;
+  background-size: 60%;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 
-@media (max-width: 1199px) {
-  .container {
-    width: auto;
-    padding: 0 10px;
-  }
+.twitter {
+  background-image: url('images/tweet_icon.png');
 }
 
-@media (max-width: 480px) {
-  ul.grid-nav li {
-    display: block;
-    margin: 0 0 5px;
-  }
-  ul.grid-nav li a {
-    display: block;
-  }
-  ul.rig {
-    margin-left: 0;
-  }
-  ul.rig li {
-    width: 100% !important; /* over-ride all li styles */
-    margin: 0 0 20px;
-  }
+.instagram {
+  background-image: url('images/insta_icon.png');
+}
+
+.infobox {
+  position: relative;
+  padding: 15px;
+  top: 18vw;
+  background-color: rgba(0,0,0,.6);
+  height: 20vw;
+  /*opacity: 0;*/
+  /*transition: opacity 0.5s ease;*/
+}
+
+
+.infobox:hover {
+  /*opacity: 1;*/
+}
+
+.infobox h3 {
+  color: #FFFFFF;
+  font-size: 1.2vw;
+}
+
+.infobox h4 {
+  color: #FFFFFF;
+  font-size: 1.2vw;
+}
+
+.infobox p {
+  color: #FFFFFF;
+  font-size: 1.2vw;
+}
+
+
+
+.tile.tweet h3 {
+  margin: 40px 20px 20px 24px;
+  color: #1c8e95;
+  font-size: 1.4vw;
+}
+
+.tile.tweet h4 {
+  margin: 20px 20px;
+  color: #666666;
+  font-size: 1.2vw;
+  text-transform: uppercase;
+}
+
+.tile.tweet p {
+  margin: 20px 20px;
+  color: #333333;
+  font-size: 2vw;
+  font-weight: 600;
 }
 

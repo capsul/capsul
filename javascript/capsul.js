@@ -2,33 +2,52 @@
 //Controller Below
 var SlideshowController = (function(){
 
-  var backgroundSlides = {
+    var backgroundSlides = {
+      
     data: [
       { type: "image",
-        createdAt: "04/25/2013 at 4:35pm",
-        link: "images/bg_05.jpg",
-        author: "@schmee",
-        placename: "San Francisco",
-        caption: "Things white people like. And then there's an Asian in the middle.",
-        hashtags: ["#innapropriate", "#letsbereal", "#idratherhavecake"],
+        createdAt: "08/17/2013 at 8:18pm",
+        link: "images/background/texans.jpg",
+        author: "@bertie",
+        placename: "Houston",
+        caption: "Go Texans!",
+        hashtags: ["#reliant", "#stadium", "#texans"],
         textcolor: "#FFFFFF"
       },
       { type: "image",
-        createdAt: "06/13/1973 at 3:20pm",
-        link: "images/bg_06.jpg",
-        author: "@grampie",
-        placename: "Paris",
-        caption: "Happy Birthday to this George Clooney Doppelganger",
-        hashtags: ["#astarisborn", "#tbt", "#timeforcake"],
+        createdAt: "11/07/2010 at 10:48am",
+        link: "images/background/taj_mahal.jpg",
+        author: "@ellen",
+        placename: "Agra",
+        caption: "This place is so mysterious and awesome!",
+        hashtags: ["#india", "#tajmahal", "#family", "#zen"],
         textcolor: "#444444"
       },
       { type: "image",
-        createdAt: "12/25/2075 at Noon",
-        link: "images/bg_09.jpg",
-        author: "@bertie",
-        placename: "Washington DC",
-        caption: "Things asians people like. And day clubs after they were cool.",
-        hashtags: ["#yourpeople", "#mypeople", "#youdoyou"],
+        createdAt: "04/12/2011 at 14:16pm",
+        link: "images/background/paris.jpg",
+        author: "@cutiepie",
+        placename: "Paris",
+        caption: "I fell in love with Paris. I could live here forever!",
+        hashtags: ["#paris", "#loveit", "#eiffel"],
+        textcolor: "#444444"
+      },
+      { type: "image",
+        createdAt: "01/01/2008 at 00:01am",
+        link: "images/background/new_york.jpg",
+        author: "@lover",
+        placename: "New York",
+        caption: "With my love at Times Square. Happy New Year everyone",
+        hashtags: ["#newyork", "#timessquare", "#newyear"],
+        textcolor: "#FFFFFF"
+      },
+      { type: "image",
+        createdAt: "08/27/2012 at 11:24am",
+        link: "images/background/burning_man.jpg",
+        author: "@john",
+        placename: "Black Rock Desert",
+        caption: "Burning Man was the best experience of life. True Freedom!",
+        hashtags: ["#freedom", "#burningman", "#music", "#fun"],
         textcolor: "#444444"
       },
     ]
