@@ -45,38 +45,10 @@ var DataRetriever = (function(){
     request.done(callback);
   }
 
-  function renderContent(ajaxResponse){
-    var content = parseData(ajaxResponse);
-    PictureController.preparePictures(content.images);
-    // TextController.prepareText(content.text);
-  }
-
-  function parseData(ajaxResponse){
-    var contentHolder = {
-      text: [],
-      images: []
-    }
-
-    //flattens all arrays into one array
-    var ajaxData = ajaxResponse.data.reduce(function(a, b) {
-      return a.concat(b);
-    });
-
-    ajaxData.forEach(function(item){
-      if (item.type === "text") {
-        contentHolder.text.push(item);
-      }
-      else if (item.type === "image") {
-        contentHolder.images.push(item);
-      }
-    })
-    return contentHolder
-  }
-
   return {
     requestData: function(){
       var url = constructURL();
-      AjaxRequest(url,renderContent)
+      AjaxRequest(url, DataConverter.convertData)
     }
   }
 })()
