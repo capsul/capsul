@@ -7,7 +7,7 @@ function initialize() {
 var DataRetriever = (function(){
 
   function constructURL(){
-      var base = 'http://api-capsul.herokuapp.com/users/1/media?'
+      var base = 'http://api-capsul-new.herokuapp.com/users/1/media?'
       var latNumber = Number(MapController.getLatitude()).toPrecision(8);
       var lat = "lat=" + latNumber + "&";
       var lngNumber = Number(MapController.getLongitude()).toPrecision(8);
@@ -40,11 +40,12 @@ var DataRetriever = (function(){
     }
 
     //flattens all arrays into one array
-    var ajaxData = ajaxResponse.data.reduce(function(a, b) {
-      return a.concat(b);
-    });
-
-    ajaxData.forEach(function(item){
+    // var ajaxData = ajaxResponse.data.reduce(function(a, b) {
+    //   return a.concat(b);
+    // });
+    console.log(ajaxResponse)
+    ajaxResponse.data.forEach(function(item){
+      console.log(item)
       if (item.type === "text") {
         contentHolder.text.push(item);
       }

@@ -3,7 +3,7 @@ html, body {
 }
 
 html{
-  background-color: #999999;
+  background-color: #6b7c84;
   margin: 0;
   padding: 0;
   font-family: 'Signika', sans-serif;
@@ -11,6 +11,7 @@ html{
 }
 
 header {
+  visibility: visible;
   height: 62px;
   color: #FFFFFF;
   width: 100%;
@@ -45,8 +46,6 @@ header p span {
 
 #slideshow {
   position: fixed;
-  z-index: -100;
-  /*visibility: hidden;*/
 }
 
 .logo {
@@ -57,6 +56,7 @@ header p span {
 }
 
 #slideshow {
+  z-index: -100
   position: fixed;
 }
 
@@ -88,6 +88,7 @@ header p span {
 
 
 #controls {
+  visibility: hidden;
   position: fixed;
   width: 100%;
   height: 100%;
@@ -96,6 +97,7 @@ header p span {
 }
 
 #cb-wrapper {
+  visibility: visible;
   z-index: 99;
   width: 100%;
   position: relative;
@@ -235,55 +237,6 @@ input:focus {
   z-index: -50;
 }
 
-/*li .image {
-  width: 100px;
-  height: 200px;
-  margin-bottom: 20px;
-  background-color: orange;
-}*/
-
-@-webkit-keyframes animate {
-  0% {
-    opacity:1;
-  }
-  16% {
-    opacity:1;
-  }
-  20% {
-    opacity:0;
-  }
-  96% {
-    opacity:0;
-  }
-  100% {
-    opacity:1;
-  }
-}
-
-#slideshow .slide {
-  -webkit-animation-name: animate;
-  -webkit-animation-timing-function: ease-in-out;
-  -webkit-animation-iteration-count: infinite;
-  -webkit-animation-duration: 25s;
-}
-
-#slideshow .slide:nth-of-type(1) {
-  -webkit-animation-delay: 20s;
-}
-
-#slideshow .slide:nth-of-type(2) {
-  -webkit-animation-delay: 15s;
-}
-#slideshow .slide:nth-of-type(3) {
-  -webkit-animation-delay: 10s;
-}
-#slideshow .slide:nth-of-type(4) {
-  -webkit-animation-delay: 5s;
-}
-#slideshow .slide:nth-of-type(5) {
-  -webkit-animation-delay: 0s;
-}
-
 #granule-viewer {
   position: relative;
   top:400px;
@@ -338,13 +291,12 @@ input:focus {
   top: 18vw;
   background-color: rgba(0,0,0,.6);
   height: 20vw;
-  /*opacity: 0;*/
-  /*transition: opacity 0.5s ease;*/
+  opacity: 0;
+  transition: opacity 0.5s ease;
 }
 
-
 .infobox:hover {
-  /*opacity: 1;*/
+  opacity: 1;
 }
 
 .infobox h3 {
@@ -361,8 +313,6 @@ input:focus {
   color: #FFFFFF;
   font-size: 1.2vw;
 }
-
-
 
 .tile.tweet h3 {
   margin: 40px 20px 20px 24px;
@@ -382,5 +332,50 @@ input:focus {
   color: #333333;
   font-size: 2vw;
   font-weight: 600;
+}
+
+@-webkit-keyframes animate {
+  0% {
+    opacity:1;
+  }
+  16% {
+    opacity:1;
+  }
+  20% {
+    opacity:0;
+  }
+  96% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+
+#slideshow .slide {
+  -webkit-animation-name: animate;
+  -webkit-animation-timing-function: ease-in-out;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-duration: 25s;
+}
+
+#slideshow .slide:nth-of-type(1) {
+  -webkit-animation-delay: 20s;
+}
+
+#slideshow .slide:nth-of-type(2) {
+  -webkit-animation-delay: 15s;
+}
+
+#slideshow .slide:nth-of-type(3) {
+  -webkit-animation-delay: 10s;
+}
+
+#slideshow .slide:nth-of-type(4) {
+  -webkit-animation-delay: 5s;
+}
+
+#slideshow .slide:nth-of-type(5) {
+  -webkit-animation-delay: 0s;
 }
 

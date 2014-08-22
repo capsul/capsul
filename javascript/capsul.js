@@ -97,32 +97,38 @@ var SlideshowController = (function(){
 })(SlideView);
 
 var controlBarController = (function() {
-  return{
+  return {
     slideUp: function() {
-      $("#button").click(function(){
-              console.log("button click");
-              $("#cb-wrapper").animate({
-                    top:"0%"
-                  }, "slow");
-              $("#slideshow").animate({
-                opacity:"0"
-              }, "slow");
-              $("#map-canvas").css("visibility", "visible");
-              $("#map-canvas").animate({
-                    opacity: "1"
-                  }, "slow");
-        });
+      var self = this;
 
+      $("#button").click(function() {
+        $("#cb-wrapper").animate({top:"0%"}, "slow");
+
+        $("#slideshow").fadeOut( 750, function() {
+          $( this ).remove()
+        });
+        $("#map-canvas").css("visibility", "visible");
+        $("#map-canvas").animate({opacity: "1"}, "slow");
+
+        $(document).on('DOMMouseScroll mousewheel', self.handleMap)
+        })
+    },
+
+    handleMap: function(event){
+      if (event.originalEvent.detail > event.originalEvent.wheelDelta) {
+        $("#map-canvas").fadeOut(750);
+      }
+      else if (event.originalEvent.detail < event.originalEvent.wheelDelta) {
+        $("#map-canvas").fadeIn(750);
+      }
     }
   }
-}) ()
+})()
 
 //View Below
 var SlideView = (function(){
   return {
     render: function(slideHTML, slideBgImage, slideTextColor){
-      console.log('this is the slide text color')
-      console.log(slideTextColor);
       $('#slideshow').append(slideHTML);
       $('#slideshow .slide').last().css({
        'background-image' : 'url('+slideBgImage+')',
@@ -162,6 +168,5 @@ function Slide(slide) {
 $(document).ready(SlideshowController.prepareSlides.bind(SlideshowController)
   )
 
-$(document).ready(function(){
-  controlBarController.slideUp();
-})
+$(document).ready(controlBarController.slideUp.bind(controlBarController))
+
