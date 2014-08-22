@@ -116,10 +116,14 @@ var controlBarController = (function() {
 
     handleMap: function(event){
       if (event.originalEvent.detail > event.originalEvent.wheelDelta) {
-        $("#map-canvas").fadeOut(750);
+        $("#map-canvas").fadeOut(750,function(){
+          $(this).attr('visibility','hidden')
+        });
       }
       else if (event.originalEvent.detail < event.originalEvent.wheelDelta) {
-        $("#map-canvas").fadeIn(750);
+        $("#map-canvas").fadeIn(1250, function(){
+          $(this).attr('visibility', 'visible')
+        });
       }
     }
   }
