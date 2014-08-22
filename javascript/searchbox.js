@@ -1,4 +1,4 @@
-//This will hold the searchBox model
+  //This will hold the searchBox model
 var SearchHolder = {};
 
 var SearchBoxController = (function(){
