@@ -2,6 +2,6 @@
 function Picture(object) {
   this.username = object.author,
   this.url = object.images.high_res,
-  this.hashtag = "@testTag",
+  this.hashtag = object.hashtags[0]
   this.contentType = object.type
 }

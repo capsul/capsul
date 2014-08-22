@@ -121,7 +121,7 @@ var controlBarController = (function() {
         });
       }
       else if (event.originalEvent.detail < event.originalEvent.wheelDelta) {
-        $("#map-canvas").fadeIn(1250, function(){
+        $("#map-canvas").fadeIn(750, function(){
           $(this).attr('visibility', 'visible')
         });
       }
