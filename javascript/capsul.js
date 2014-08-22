@@ -97,21 +97,30 @@ var SlideshowController = (function(){
 })(SlideView);
 
 var controlBarController = (function() {
-  return{
+  return {
     slideUp: function() {
+      var self = this;
+
       $("#button").click(function() {
-        console.log("button click");
-        $("#cb-wrapper").animate({
-          top:"0%"
-        }, "slow");
-        $("#slideshow").fadeOut( 750, function() { 
-          $( this ).remove() 
+        $("#cb-wrapper").animate({top:"0%"}, "slow");
+
+        $("#slideshow").fadeOut( 750, function() {
+          $( this ).remove()
         });
         $("#map-canvas").css("visibility", "visible");
-        $("#map-canvas").animate({
-          opacity: "1"
-        }, "slow");
-      });
+        $("#map-canvas").animate({opacity: "1"}, "slow");
+
+        $(document).on('DOMMouseScroll mousewheel', self.handleMap)
+        })
+    },
+
+    handleMap: function(event){
+      if (event.originalEvent.detail > event.originalEvent.wheelDelta) {
+        $("#map-canvas").fadeOut(750);
+      }
+      else if (event.originalEvent.detail < event.originalEvent.wheelDelta) {
+        $("#map-canvas").fadeIn(750);
+      }
     }
   }
 })()
@@ -159,6 +168,5 @@ function Slide(slide) {
 $(document).ready(SlideshowController.prepareSlides.bind(SlideshowController)
   )
 
-$(document).ready(function(){
-  controlBarController.slideUp();
-})
+$(document).ready(controlBarController.slideUp.bind(controlBarController))
+
