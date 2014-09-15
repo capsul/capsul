@@ -107,6 +107,11 @@ var controlBarController = (function() {
         $("#slideshow").fadeOut( 750, function() {
           $( this ).remove()
         });
+        $("#control-bar").on('mouseenter', function() {
+          $("#map-canvas").fadeIn(750, function(){
+            $(this).attr('visibility', 'visible')
+          });
+        });
         $("#map-canvas").css("visibility", "visible");
         $("#map-canvas").animate({opacity: "1"}, "slow");
 
@@ -120,11 +125,11 @@ var controlBarController = (function() {
           $(this).attr('visibility','hidden')
         });
       }
-      else if (event.originalEvent.detail < event.originalEvent.wheelDelta) {
-        $("#map-canvas").fadeIn(750, function(){
-          $(this).attr('visibility', 'visible')
-        });
-      }
+      // else if (event.originalEvent.detail < event.originalEvent.wheelDelta) {
+        // $("#map-canvas").fadeIn(750, function(){
+        //   $(this).attr('visibility', 'visible')
+        // });
+      // }
     }
   }
 })()
