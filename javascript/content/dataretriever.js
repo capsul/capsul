@@ -7,7 +7,7 @@ function initialize() {
 var DataRetriever = (function(){
 
   function constructURL(){
-    var base = 'http://api-capsul-new.herokuapp.com/users/1/media?'
+    var base = 'http://api-capsul.herokuapp.com/users/1/media?'
     var lat = getLatitude();
     var lng = getLongitude();
     var time = getTime();

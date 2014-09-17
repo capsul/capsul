@@ -247,15 +247,15 @@ input:focus {
 }
 
 #content-container {
-  margin: 0 auto;
-  padding: 1vw 0;
+  /*margin: 0 auto;*/
+  padding: 1.5vw 0;
   width: 97%;
 }
 
 #granule-viewer div.tile {
   background-color: rgba(200, 200, 200, .8);
-  height: 30vw;
-  width: 30vw;
+  height: 31vw;
+  width: 31vw;
   display: inline-block;
   margin: 1vw;
   background-size: cover;
