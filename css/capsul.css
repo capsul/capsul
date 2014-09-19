@@ -7,12 +7,14 @@
 html, body, h1, h2, h3, h4, h5, h6 {
   margin: 0;
   padding: 0;
+  width: 100%;
 }
 
 html {
   font-family: 'Signika', sans-serif;
   font-size: 16px; /* 1 rem = 16px */
   font-weight: 300;
+  background-color: #444444;
 }
 
 h1 {
@@ -116,6 +118,7 @@ header p span {
   background-color: rgba(0, 0, 0, .85);
   width: 100%;
   padding: 20px 85px;
+  min-height: 145px;
 }
 
 #control-bar h4 {
@@ -131,7 +134,7 @@ header p span {
 .cb-submit {
   display: inline-block;
   vertical-align: top;
-  margin: 0 30px 20px 0;
+  margin: 5px 30px 20px 0;
 }
 
 .cb-datepicker {
@@ -145,17 +148,7 @@ header p span {
 }
 
 .cb-submit {
-  margin: 1.8rem 0 0 0;
-}
-
-.cb-module {
-  display: inline-block;
-  color: #ffffff;
-  width: 30%;
-  min-width: 200px;
-  max-width: 600px;
-  background-color: orange;
-  margin-top: 20px;
+  margin: 2.1rem 0 0 0;
 }
 
 .cb-icon-cal {
@@ -234,6 +227,111 @@ input:focus {
   padding: 5px 15px;
 }
 
+#map-canvas {
+  visibility: hidden;
+  height: 0;
+}
+
+/*NEEDS REFACTOR TO NEW granule viewer*/
+
+#granule-viewer {
+  position: relative;
+  top: 487px;
+  padding: 0px 0px 20px 10px;
+}
+
+#granule-viewer div.tile {
+  position: relative;
+  display: inline-block;
+  float: left;
+  width: 31%;
+  height: 0;
+  padding-bottom: 31%;
+  margin: 0 1% 24px 1%;
+  background-color: rgba(200, 200, 200, .8);
+  background-position: center;
+  background-size: cover;
+  overflow: hidden;
+}
+
+#granule-viewer div.tile:hover .infobox {
+  opacity: 1;
+}
+
+.icon {
+  position: relative;
+  top: 1rem;
+  left: 1rem;
+  width: 2.2rem;
+  height: 2.2rem;
+  opacity: .75;
+  border-radius: 50px;
+  background-color: #FFFFFF;
+  background-size: 60%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.twitter {
+  background-image: url('../images/tweet_icon.png');
+}
+
+.instagram {
+  background-image: url('../images/insta_icon.png');
+}
+
+.infobox {
+  opacity: 0;
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  max-height: 75%;
+  background-color: rgba(0,0,0,.8);
+  padding: 1rem;
+  transition: opacity 0.5s ease;
+}
+
+/*.infobox:hover {
+  opacity: 1;
+}*/
+
+.infobox h3 {
+  color: #FFFFFF;
+  font-size: 1.1rem;
+  font-weight: 300;
+}
+
+.infobox h4 {
+  color: #FFFFFF;
+  font-size: 1.1rem;
+  font-weight: 300;
+  margin-top: .3rem;
+}
+
+.infobox p {
+  color: #FFFFFF;
+  font-size: 1rem;
+}
+
+.tile.tweet h3 {
+  margin: 2.5rem 1.25rem 1.25rem 1.5rem;
+  color: #1c8e95;
+  font-size: 1.5rem;
+}
+
+.tile.tweet h4 {
+  margin: 1.25rem 1.25rem;
+  color: #666666;
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+
+.tile.tweet p {
+  margin: 1.25rem 1.25rem;
+  color: #333333;
+  font-size: 1.75rem;
+  font-weight: 600;
+}
 
 
 /* #Media Queries
@@ -244,6 +342,19 @@ input:focus {
 
 #controls {
   position: static;
+  min-height: 0;
+}
+
+#granule-viewer {
+  top: 13px;
+  padding: 0px 0px 10px 5px;
+}
+
+#granule-viewer div.tile {
+  float: left;
+  width: 47.5%;
+  padding-bottom: 47.5%;
+  margin: 0 1% 15px 1%;
 }
 
 html {
@@ -280,6 +391,13 @@ header p span {
 }
 
 @media only screen and (max-width: 479px) {
+
+#granule-viewer div.tile {
+  float: none;
+  width: 97%;
+  padding-bottom: 97%;
+  margin: 0 1% 10px 1%;
+}
 
 .slide-text h3, header p span {
   display: none;

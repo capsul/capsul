@@ -97,43 +97,46 @@ var SlideshowController = (function(){
 })(SlideView);
 
 var controlBarController = (function() {
+  var mapVisible = false
+
   return {
     slideUp: function() {
       var self = this;
 
       $("#button").click(function() {
-        $("#cb-wrapper").animate({top:"0%"}, "slow");
+        $("#cb-wrapper").animate({top: "0%"}, "slow");
+        $("header").animate({marginBottom: "0"}, "slow");
 
         $("#slideshow").fadeOut( 750, function() {
           $( this ).remove()
         });
-        $("#control-bar").on('mouseenter', function() {
-          $("#map-canvas").fadeIn(750, function(){
-            $(this).attr('visibility', 'visible')
-          });
-        });
-        $("#map-canvas").css("visibility", "visible");
-        $("#map-canvas").animate({opacity: "1"}, "slow");
 
-        $(document).on('DOMMouseScroll mousewheel', self.handleMap)
-        })
+        if ($( window ).width() > 767) {
+          self.showMap()
+
+          $(document).on('DOMMouseScroll mousewheel', function(event) { if (mapVisible) self.hideMap(event) })
+
+          $("#control-bar").mouseenter(function() { if (!mapVisible) self.showMap() })
+        }
+      })
     },
 
-    handleMap: function(event){
+    hideMap: function(event){
       if (event.originalEvent.detail > event.originalEvent.wheelDelta) {
-        $("#map-canvas").fadeOut(750,function(){
-          $(this).attr('visibility','hidden')
-        });
+        mapVisible = false
+        $("#map-canvas").animate({height:"0px", opacity:"0"}, "slow", function() { $("#map-canvas").css("visibility", "hidden") })
+        $("#granule-viewer").animate({top: "237px"}, "slow");
       }
-      // else if (event.originalEvent.detail < event.originalEvent.wheelDelta) {
-        // $("#map-canvas").fadeIn(750, function(){
-        //   $(this).attr('visibility', 'visible')
-        // });
-      // }
+    },
+
+    showMap: function() {
+      mapVisible = true
+      $("#map-canvas").css("visibility", "visible")
+      $("#map-canvas").animate({height: "250px",  opacity:"1"}, "slow")
+      $("#granule-viewer").animate({top: "487px"}, "slow");
     }
   }
 })()
-
 //View Below
 var SlideView = (function(){
   return {
@@ -174,8 +177,7 @@ function Slide(slide) {
 };
 
 
-$(document).ready(SlideshowController.prepareSlides.bind(SlideshowController)
-  )
-
 $(document).ready(controlBarController.slideUp.bind(controlBarController))
+// $(document).ready(SlideshowController.prepareSlides.bind(SlideshowController))
+
 

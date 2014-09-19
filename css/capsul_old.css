@@ -260,10 +260,10 @@ input:focus {
 
 .icon {
   position: relative;
-  top: 15px;
-  left: 15px;
-  width: 40px;
-  height: 40px;
+  top: 1rem;
+  left: 1rem;
+  width: 2.2rem;
+  height: 2.2rem;
   opacity: .75;
   border-radius: 50px;
   background-color: #FFFFFF;
