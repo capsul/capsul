@@ -96,12 +96,66 @@ var SlideshowController = (function(){
   }
 })(SlideView);
 
+// controlBarController takes care of bar anim, map show hide on scroll or RO or for window resize
+// that crosses responsive snap point (map hidden for mobile)
+// also manages adjusting position of the granule viewer based on various factors
+
 var controlBarController = (function() {
+  var controlsHeight
+  var mapEnabled
+  var mapWidthThreshold = 767
   var mapVisible = false
+
+  var showMap = function() {
+    mapVisible = true
+    $("#map-canvas").css("visibility", "visible")
+    $("#map-canvas").animate({height: "250px",  opacity:"1"}, "slow")
+    $("#granule-viewer").animate({top: controlsHeight + 250 + 62 + "px"}, "slow");
+  }
+
+  var hideMap = function(){
+      mapVisible = false
+      $("#map-canvas").animate({height:"0px", opacity:"0"}, "slow", function() { $("#map-canvas").css("visibility", "hidden") })
+      $("#granule-viewer").animate({top: controlsHeight + 62 + "px"}, "slow");
+  }
+
+  var disableMap = function(){
+      mapVisible = false
+      $("#map-canvas").animate({height:"0px", opacity:"0"}, "slow", function() { $("#map-canvas").css("visibility", "hidden") })
+      $("#granule-viewer").animate({top: 10 + "px"}, "slow");
+  }
+
+  var getControlsHeight = function() {
+    return $("header").height() + $("#control-bar").height()
+  }
+
+  var getMapHeight = function() {
+    return $("#map-canvas").height()
+  }
 
   return {
     slideUp: function() {
-      var self = this;
+      
+      controlsHeight = getControlsHeight()
+
+      mapEnabled = ($(window).width() > mapWidthThreshold)
+
+      // $(window).on("resize", function(e) {
+      //   // console.log("mapEnabled is: ", mapEnabled)
+      //   var mapShouldShow = (e.target.innerWidth > mapWidthThreshold)
+      //   // console.log("mapShouldShow is: ", mapShouldShow)
+      //   if (controlsHeight !== getControlsHeight()) controlsHeight = getControlsHeight()
+      //   if (mapShouldShow !== mapEnabled ) {
+      //        mapEnabled = !mapEnabled
+      //     if (mapEnabled) {
+      //       $("#granule-viewer").css("top", controlsHeight + getMapHeight() + 62 + "px")
+      //       showMap()
+      //     } else {
+      //       // console.log("controlsHeight is: ", controlsHeight)
+      //       disableMap()
+      //     }
+      //   }
+      // })
 
       $("#button").click(function() {
         $("#cb-wrapper").animate({top: "0%"}, "slow");
@@ -111,32 +165,37 @@ var controlBarController = (function() {
           $( this ).remove()
         });
 
-        if ($( window ).width() > 767) {
-          self.showMap()
+        if (mapEnabled) showMap()
 
-          $(document).on('DOMMouseScroll mousewheel', function(event) { if (mapVisible) self.hideMap(event) })
+        $(document).on('DOMMouseScroll mousewheel', function(event) { 
+          if (mapEnabled && mapVisible && (event.originalEvent.detail > event.originalEvent.wheelDelta)) {
+            hideMap()
+          } 
+        })
 
-          $("#control-bar").mouseenter(function() { if (!mapVisible) self.showMap() })
-        }
+        $("#control-bar").mouseenter(function() { if (mapEnabled && !mapVisible) showMap() })
+
+        $(window).on("resize", function(e) {
+          // console.log("mapEnabled is: ", mapEnabled)
+          var mapShouldShow = (e.target.innerWidth > mapWidthThreshold)
+          // console.log("mapShouldShow is: ", mapShouldShow)
+          if (controlsHeight !== getControlsHeight()) controlsHeight = getControlsHeight()
+          if (mapShouldShow !== mapEnabled ) {
+               mapEnabled = !mapEnabled
+            if (mapEnabled) {
+              $("#granule-viewer").css("top", controlsHeight + getMapHeight() + 62 + "px")
+              showMap()
+            } else {
+              // console.log("controlsHeight is: ", controlsHeight)
+              disableMap()
+            }
+          }
+        })
       })
-    },
-
-    hideMap: function(event){
-      if (event.originalEvent.detail > event.originalEvent.wheelDelta) {
-        mapVisible = false
-        $("#map-canvas").animate({height:"0px", opacity:"0"}, "slow", function() { $("#map-canvas").css("visibility", "hidden") })
-        $("#granule-viewer").animate({top: "237px"}, "slow");
-      }
-    },
-
-    showMap: function() {
-      mapVisible = true
-      $("#map-canvas").css("visibility", "visible")
-      $("#map-canvas").animate({height: "250px",  opacity:"1"}, "slow")
-      $("#granule-viewer").animate({top: "487px"}, "slow");
     }
   }
 })()
+
 //View Below
 var SlideView = (function(){
   return {
@@ -176,8 +235,7 @@ function Slide(slide) {
   this.textcolor = slide.textcolor
 };
 
-
-$(document).ready(controlBarController.slideUp.bind(controlBarController))
+$(document).ready(controlBarController.slideUp)
 // $(document).ready(SlideshowController.prepareSlides.bind(SlideshowController))
 
 
