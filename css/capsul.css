@@ -316,7 +316,8 @@ input:focus {
 }
 
 .tile.tweet h3 {
-  margin: 2.5rem 1.25rem 1.25rem 1.25rem;
+  margin: 2.5rem 0 1.25rem 0;
+  padding: 0 1.5rem;
   color: #1c8e95;
   font-size: 1.75vw;
 }
@@ -330,7 +331,8 @@ input:focus {
 }
 
 .tile.tweet p {
-  margin: 1.25rem 1.25rem;
+  margin: 1.25rem 0 1.25rem 0;
+  padding: 0 1.5rem;
   color: #333333;
   font-size: 1.5vw;
   font-weight: 600;
