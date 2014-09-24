@@ -42,9 +42,13 @@ var DataRetriever = (function(){
     console.log(url)
     capsulController.submitButtonLoading()
     var request = $.ajax({
-      url:url
+      url:        url,
+      type:       "GET",
+      dataType:   "json",
+      timeout:    30000
     })
-    request.done(callback);
+    request.done(callback)
+    request.fail(function(jqXHR, status) {console.log("some shit went wrong: ", status)})
   }
 
   return {
