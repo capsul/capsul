@@ -314,22 +314,22 @@ input:focus {
 }
 
 .tile.tweet h3 {
-  margin: 2.5rem 1.25rem 1.25rem 1.5rem;
+  margin: 2.5rem 1.25rem 1.25rem 1.25rem;
   color: #1c8e95;
-  font-size: 1.5rem;
+  font-size: 1.75vw;
 }
 
 .tile.tweet h4 {
   margin: 1.25rem 1.25rem;
   color: #666666;
-  font-size: 1rem;
+  font-size: 1.25vw;
   text-transform: uppercase;
 }
 
 .tile.tweet p {
   margin: 1.25rem 1.25rem;
   color: #333333;
-  font-size: 1.75rem;
+  font-size: 1.5vw;
   font-weight: 600;
 }
 
@@ -388,6 +388,18 @@ header p span {
   padding: 16px 1rem;
 }
 
+.tile.tweet h3 {
+  font-size: 3vw;
+}
+
+.tile.tweet h4 {
+  font-size: 2vw;
+}
+
+.tile.tweet p {
+  font-size: 2.75vw;
+}
+
 }
 
 @media only screen and (max-width: 479px) {
@@ -414,6 +426,18 @@ header {
 
 .cb-submit {
   margin: 0;
+}
+
+.tile.tweet h3 {
+  font-size: 6.5vw;
+}
+
+.tile.tweet h4 {
+  font-size: 4.5vw;
+}
+
+.tile.tweet p {
+  font-size: 6.5vw;
 }
 
 }
