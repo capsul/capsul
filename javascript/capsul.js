@@ -140,23 +140,6 @@ var controlBarController = (function() {
 
       mapEnabled = ($(window).width() > mapWidthThreshold)
 
-      // $(window).on("resize", function(e) {
-      //   // console.log("mapEnabled is: ", mapEnabled)
-      //   var mapShouldShow = (e.target.innerWidth > mapWidthThreshold)
-      //   // console.log("mapShouldShow is: ", mapShouldShow)
-      //   if (controlsHeight !== getControlsHeight()) controlsHeight = getControlsHeight()
-      //   if (mapShouldShow !== mapEnabled ) {
-      //        mapEnabled = !mapEnabled
-      //     if (mapEnabled) {
-      //       $("#granule-viewer").css("top", controlsHeight + getMapHeight() + 62 + "px")
-      //       showMap()
-      //     } else {
-      //       // console.log("controlsHeight is: ", controlsHeight)
-      //       disableMap()
-      //     }
-      //   }
-      // })
-
       $("#button").click(function() {
         $("#cb-wrapper").animate({top: "0%"}, "slow");
         $("header").animate({marginBottom: "0"}, "slow");
@@ -192,7 +175,16 @@ var controlBarController = (function() {
           }
         })
       })
+    },
+
+    submitButtonLoading: function() {
+      $("#button").css("background-image", "url('images/loading.gif')")
+    },
+
+    submitButtonDefault: function() {
+      $("#button").css("background-image", "")
     }
+
   }
 })()
 

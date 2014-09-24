@@ -194,6 +194,8 @@ input:focus {
   background-color: rgba(31, 220, 232, .6);
   border-radius: 50px;
   background-image: url('../images/submit_icon_r.svg');
+  background-position: center;
+  background-size: cover;
   transition: background-color, box-shadow, 0.5s ease;
 }
 

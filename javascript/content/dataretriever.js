@@ -39,6 +39,7 @@ var DataRetriever = (function(){
   }
 
   function AjaxRequest(url,callback){
+    controlBarController.submitButtonLoading()
     var request = $.ajax({
       url:url
     })
