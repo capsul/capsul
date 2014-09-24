@@ -48,7 +48,10 @@ var DataRetriever = (function(){
       timeout:    30000
     })
     request.done(callback)
-    request.fail(function(jqXHR, status) {console.log("some shit went wrong: ", status)})
+    request.fail(function(jqXHR, status) {
+      capsulController.showErrorMessage()
+      capsulController.submitButtonDefault()
+    })
   }
 
   return {

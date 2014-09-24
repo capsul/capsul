@@ -234,7 +234,19 @@ input:focus {
   height: 0;
 }
 
-/*NEEDS REFACTOR TO NEW granule viewer*/
+#error-banner {
+  display: none;
+  background-color: rgba(173, 5, 72, .9);
+  width: 100%;
+  padding: 20px 85px;
+  min-height: 70px;
+  transition: opacity 0.5s ease;
+}
+
+#error-banner h2 {
+  color: #FFFFFF;
+  letter-spacing: 1px;
+}
 
 #granule-viewer {
   position: relative;
@@ -292,10 +304,6 @@ input:focus {
   padding: 1rem;
   transition: opacity 0.5s ease;
 }
-
-/*.infobox:hover {
-  opacity: 1;
-}*/
 
 .infobox h3 {
   color: #FFFFFF;

@@ -141,12 +141,14 @@ var capsulController = (function() {
       mapEnabled = ($(window).width() > mapWidthThreshold)
 
       $("#button").click(function() {
-        $("#cb-wrapper").animate({top: "0%"}, "slow");
-        $("header").animate({marginBottom: "0"}, "slow");
+        $("#cb-wrapper").animate({top: "0%"}, "slow")
+        $("header").animate({marginBottom: "0"}, "slow")
 
         $("#slideshow").fadeOut( 750, function() {
           $( this ).remove()
-        });
+        })
+
+        capsulController.resetErrorMessage()
 
         if (mapEnabled) showMap()
 
@@ -180,6 +182,14 @@ var capsulController = (function() {
 
     submitButtonDefault: function() {
       $("#button").css("background-image", "")
+    },
+
+    showErrorMessage: function() {
+      $("#error-banner").css("display", "block")
+    },
+
+    resetErrorMessage: function() {
+      $("#error-banner").css("display", "none")
     }
 
   }
