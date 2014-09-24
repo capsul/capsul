@@ -96,11 +96,11 @@ var SlideshowController = (function(){
   }
 })(SlideView);
 
-// controlBarController takes care of bar anim, map show hide on scroll or RO or for window resize
+// capsulController takes care of bar anim, map show hide on scroll or RO or for window resize
 // that crosses responsive snap point (map hidden for mobile)
 // also manages adjusting position of the granule viewer based on various factors
 
-var controlBarController = (function() {
+var capsulController = (function() {
   var controlsHeight
   var mapEnabled
   var mapWidthThreshold = 767
@@ -159,9 +159,7 @@ var controlBarController = (function() {
         $("#control-bar").mouseenter(function() { if (mapEnabled && !mapVisible) showMap() })
 
         $(window).on("resize", function(e) {
-          // console.log("mapEnabled is: ", mapEnabled)
           var mapShouldShow = (e.target.innerWidth > mapWidthThreshold)
-          // console.log("mapShouldShow is: ", mapShouldShow)
           if (controlsHeight !== getControlsHeight()) controlsHeight = getControlsHeight()
           if (mapShouldShow !== mapEnabled ) {
                mapEnabled = !mapEnabled
@@ -169,7 +167,6 @@ var controlBarController = (function() {
               $("#granule-viewer").css("top", controlsHeight + getMapHeight() + 62 + "px")
               showMap()
             } else {
-              // console.log("controlsHeight is: ", controlsHeight)
               disableMap()
             }
           }
@@ -227,7 +224,7 @@ function Slide(slide) {
   this.textcolor = slide.textcolor
 };
 
-$(document).ready(controlBarController.slideUp)
+$(document).ready(capsulController.slideUp)
 // $(document).ready(SlideshowController.prepareSlides.bind(SlideshowController))
 
 

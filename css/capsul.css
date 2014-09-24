@@ -322,7 +322,8 @@ input:focus {
 }
 
 .tile.tweet h4 {
-  margin: 1.25rem 1.25rem;
+  margin: 1.25rem 0 1.25rem 1.25rem;
+  padding-right: 1.25rem;
   color: #666666;
   font-size: 1.25vw;
   text-transform: uppercase;

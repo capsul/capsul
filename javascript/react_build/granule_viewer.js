@@ -90,7 +90,7 @@ var MainViewport = React.createClass({displayName: 'MainViewport',
       }
     })
     return (
-        React.DOM.div({clasName: "content-container"}, 
+        React.DOM.div({className: "content-container"}, 
           contentBoxes
         )
     )

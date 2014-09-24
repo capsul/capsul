@@ -8,7 +8,7 @@ var Viewport = (function(){
     set: function(data) {
       content = data;
       $(this).trigger('update')
-      controlBarController.submitButtonDefault()
+      capsulController.submitButtonDefault()
     }
   }
 })()
