@@ -73,8 +73,8 @@ header {
   height: 62px;
   color: #FFFFFF;
   width: 100%;
-  opacity: .75;
-  background-color: #000000;
+  /*opacity: .75;*/
+  background-color: rgba(21, 135, 142, .9);
 }
 
 header img {
@@ -432,15 +432,15 @@ header {
 }
 
 .tile.tweet h3 {
-  font-size: 6.5vw;
+  font-size: 6vw;
 }
 
 .tile.tweet h4 {
-  font-size: 4.5vw;
+  font-size: 4vw;
 }
 
 .tile.tweet p {
-  font-size: 6.5vw;
+  font-size: 6vw;
 }
 
 }
