@@ -24,7 +24,6 @@ var DataRetriever = (function(){
     var adjustedTime = Number(timestamp) + offsetTime;
     var time = "time=" + adjustedTime
     return time
-    // return "time=1410375600"
   }
 
   function getLatitude(){
