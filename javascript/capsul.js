@@ -161,6 +161,7 @@ var capsulController = (function() {
         $("#control-bar").mouseenter(function() { if (mapEnabled && !mapVisible) showMap() })
 
         $(window).on("resize", function(e) {
+          if (mapEnabled) capsulMap.triggerRedraw()
           var mapShouldShow = (e.target.innerWidth > mapWidthThreshold)
           if (controlsHeight !== getControlsHeight()) controlsHeight = getControlsHeight()
           if (mapShouldShow !== mapEnabled ) {

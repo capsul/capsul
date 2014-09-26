@@ -1,6 +1,6 @@
 var capsulMap = (function() {
 
-	var mapContainer, map, pacInput, pac, pinLocations = []
+	var mapContainer, map, pacInput, pac, bounds, pins = [], markers = []
 
   var mapOptions = {
 	  mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -39,24 +39,25 @@ var capsulMap = (function() {
       		position: place.geometry.location
       	});
 
-      	var bounds = place.geometry.viewport;
+      	bounds = place.geometry.viewport;
 
       } else {
 
 	      // For each place, get the icon, place name, and location.
-	      var bounds = new google.maps.LatLngBounds();
+	      bounds = new google.maps.LatLngBounds();
 	      for (var i = 0, place; place = places[i]; i++) {
 
 	        // Create a marker for each place.
 	        var marker = new google.maps.Marker({
 	          map: map,
 	          position: place.geometry.location,
-	        	icon: granuleMarker,
 	          title: place.name
 	        });
 
-	        // markers.push(marker);
+	        // Record markers so they can be addressed / removed later.
+	        markers.push(marker);
 
+	        // extend the map bounds to contain all markers.
 	        bounds.extend(place.geometry.location);
 	      }
 	    }
@@ -79,7 +80,10 @@ var capsulMap = (function() {
 
   	clearPins: function() {},
 
-  	triggerRedraw: function() {},
+  	triggerRedraw: function() {
+  		google.maps.event.trigger(map, 'resize')
+      map.fitBounds(bounds);
+  	},
 
   	getLatitude: function() {
   		return 47.606209
