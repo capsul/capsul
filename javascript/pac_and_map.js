@@ -1,6 +1,6 @@
 var capsulMap = (function() {
 
-	var mapContainer, map, pacInput, pac, pins = [], markers = []
+	var mapContainer, map, pacInput, pac, bounds, pins = [], markers = []
 
 
   var mapOptions = {
@@ -17,7 +17,6 @@ var capsulMap = (function() {
   }
 
   var center = mapOptions.center
-  var bounds = new google.maps.LatLngBounds();
 
 	var granuleMarker = {
 		url: "images/dot.png",
@@ -49,8 +48,9 @@ var capsulMap = (function() {
       		position: place.geometry.location
       	});
 
-      	bounds = place.geometry.viewport;
         markers.push(marker);
+      	bounds = place.geometry.viewport
+      	center = place.geometry.location
 
       } else {
 
@@ -91,7 +91,7 @@ var capsulMap = (function() {
 	  },
 
   	setPins: function(locations) {
-  		// var pinBounds = new google.maps.LatLngBounds();
+  		var pinBounds = new google.maps.LatLngBounds();
 
   		locations.forEach(function(location){
 				var pin = new google.maps.Marker({
@@ -100,11 +100,11 @@ var capsulMap = (function() {
 					icon: granuleMarker
 				})
 		    pins.push(pin)
-		    // pinBounds.extend(pin.getPosition())
+		    pinBounds.extend(pin.getPosition())
   		})
-      // map.fitBounds(pinBounds)
-      // center = map.getCenter()
-      // pinBounds = []
+      map.fitBounds(pinBounds)
+      center = map.getCenter()
+      pinBounds = []
   	},
 
   	clearPins: function() {
