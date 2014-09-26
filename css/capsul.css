@@ -229,9 +229,14 @@ input:focus {
   padding: 5px 15px;
 }
 
-#map-canvas {
+#map-drawer {
   visibility: hidden;
+  overflow: hidden;
   height: 0;
+}
+
+#map-canvas {
+  height: 250px;
 }
 
 #error-banner {

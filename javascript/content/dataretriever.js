@@ -23,17 +23,18 @@ var DataRetriever = (function(){
     var offsetTime = new Date(date).getTimezoneOffset() * 60 + 43200
     var adjustedTime = Number(timestamp) + offsetTime;
     var time = "time=" + adjustedTime
-    return time
+    // return time
+    return "time=1410375600"
   }
 
   function getLatitude(){
-    var latNumber = Number(MapController.getLatitude()).toPrecision(8);
+    var latNumber = Number(capsulMap.getLatitude()).toPrecision(8);
     var lat = "lat=" + latNumber + "&";
     return lat
   }
 
   function getLongitude(){
-    var lngNumber = Number(MapController.getLongitude()).toPrecision(8);
+    var lngNumber = Number(capsulMap.getLongitude()).toPrecision(8);
     var lng = "lng=" + lngNumber + "&";
     return lng
   }

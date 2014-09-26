@@ -108,20 +108,20 @@ var capsulController = (function() {
 
   var showMap = function() {
     mapVisible = true
-    $("#map-canvas").css("visibility", "visible")
-    $("#map-canvas").animate({height: "250px",  opacity:"1"}, "slow")
+    $("#map-drawer").css("visibility", "visible")
+    $("#map-drawer").animate({height: "250px",  opacity:"1"}, "slow")
     $("#granule-viewer").animate({top: controlsHeight + 250 + 62 + "px"}, "slow");
   }
 
   var hideMap = function(){
       mapVisible = false
-      $("#map-canvas").animate({height:"0px", opacity:"0"}, "slow", function() { $("#map-canvas").css("visibility", "hidden") })
+      $("#map-drawer").animate({height:"0px", opacity:"0"}, "slow", function() { $("#map-drawer").css("visibility", "hidden") })
       $("#granule-viewer").animate({top: controlsHeight + 62 + "px"}, "slow");
   }
 
   var disableMap = function(){
       mapVisible = false
-      $("#map-canvas").animate({height:"0px", opacity:"0"}, "slow", function() { $("#map-canvas").css("visibility", "hidden") })
+      $("#map-drawer").animate({height:"0px", opacity:"0"}, "slow", function() { $("#map-drawer").css("visibility", "hidden") })
       $("#granule-viewer").animate({top: 10 + "px"}, "slow");
   }
 
@@ -130,11 +130,11 @@ var capsulController = (function() {
   }
 
   var getMapHeight = function() {
-    return $("#map-canvas").height()
+    return $("#map-drawer").height()
   }
 
   return {
-    slideUp: function() {
+    initialize: function() {
       
       controlsHeight = getControlsHeight()
 
@@ -234,7 +234,11 @@ function Slide(slide) {
   this.textcolor = slide.textcolor
 };
 
-$(document).ready(capsulController.slideUp)
+$(document).ready(function() {
+  capsulController.initialize();
+  capsulMap.initialize()
+})
+
 // $(document).ready(SlideshowController.prepareSlides.bind(SlideshowController))
 
 

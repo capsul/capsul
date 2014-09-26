@@ -12,12 +12,12 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwoBQLdXCBaGaZ-JUj4efqMvlmhoerIAs&libraries=places"></script>
 
   <script src="javascript/react.min.js"></script>
-  <!-- 
-  <script src="http://fb.me/JSXTransformer-0.11.1.js"></script>
- -->
 
+<!-- 
   <script type="text/javascript" src="javascript/map.js"></script>
   <script type="text/javascript" src="javascript/searchbox.js"></script>
+ -->
+  <script type="text/javascript" src="javascript/pac_and_map.js"></script>
 
 
   <script type="text/javascript" src="javascript/content/models/images.js"></script>
@@ -66,9 +66,11 @@
         </div>
       </div>
       <div id="error-banner">
-        <h2>Uhg. The robots are goofing off again. Give it another try.</h2>
+        <h2>Ugh. The robots are goofing off again. Give it another try.</h2>
       </div>  
-      <div id="map-canvas"></div>
+      <div id="map-drawer">
+        <div id="map-canvas"></div>
+      </div>
     </div>
     
   </div>
