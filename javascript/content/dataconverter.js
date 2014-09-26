@@ -4,12 +4,14 @@ var DataConverter = (function(){
     convertData: function(ajaxResponse){
       console.log(ajaxResponse)
 
-      var content = [];
+      var content = []
+      var locations = []
 
       ajaxResponse.data.forEach(function(item){
-        var lat = parseFloat(item.location.latitude)
-        var lng = parseFloat(item.location.longitude)
-        capsulMap.setPin(lat, lng)
+        locations.push({
+          lat: parseFloat(item.location.latitude),
+          lng: parseFloat(item.location.longitude)
+        })
         if (item.type === "text") {
           var text = new TextArticle(item);
           content.push(text);
@@ -19,7 +21,8 @@ var DataConverter = (function(){
           content.push(picture)
         }
       })
-      Viewport.set(content);
+      capsulMap.setPins(locations)
+      Viewport.set(content)
     }
   }
 })()

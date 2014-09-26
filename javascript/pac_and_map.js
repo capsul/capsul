@@ -1,6 +1,7 @@
 var capsulMap = (function() {
 
-	var mapContainer, map, pacInput, pac, bounds, pins = [], markers = []
+	var mapContainer, map, pacInput, pac, pins = [], markers = []
+
 
   var mapOptions = {
 	  mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -16,6 +17,7 @@ var capsulMap = (function() {
   }
 
   var center = mapOptions.center
+  var bounds = new google.maps.LatLngBounds();
 
 	var granuleMarker = {
 		url: "images/dot.png",
@@ -53,7 +55,6 @@ var capsulMap = (function() {
       } else {
 
 	      // For each place, get the icon, place name, and location.
-	      bounds = new google.maps.LatLngBounds();
 	      for (var i = 0, place; place = places[i]; i++) {
 
 	        // Create a marker for each place.
@@ -65,7 +66,6 @@ var capsulMap = (function() {
 
 	        // Record markers so they can be addressed / removed later.
 	        markers.push(marker);
-	        // console.log(markers)
 
 	        // extend the map bounds to contain all markers.
 	        bounds.extend(place.geometry.location);
@@ -90,18 +90,24 @@ var capsulMap = (function() {
 	    })
 	  },
 
-  	setPin: function(latitiude, longitude) {
-  		var pin = new google.maps.Marker({
-  		  map: map,
-  		  position: {lat: latitiude, lng: longitude},
-  			icon: granuleMarker
+  	setPins: function(locations) {
+  		// var pinBounds = new google.maps.LatLngBounds();
+
+  		locations.forEach(function(location){
+				var pin = new google.maps.Marker({
+				  map: map,
+				  position: location,
+					icon: granuleMarker
+				})
+		    pins.push(pin)
+		    // pinBounds.extend(pin.getPosition())
   		})
-      pins.push(pin);
-      // console.log("this is what's in pins: ", pins)
+      // map.fitBounds(pinBounds)
+      // center = map.getCenter()
+      // pinBounds = []
   	},
 
   	clearPins: function() {
-  		// console.log("tryng to clear pins")
 	  	pins.forEach(function(pin) {pin.setMap(null)})
   		pins = []
   	},
@@ -124,5 +130,3 @@ var capsulMap = (function() {
 
 })()
 
-
-// google.maps.event.addDomListener(window, 'load', capsulMap.initialize)
