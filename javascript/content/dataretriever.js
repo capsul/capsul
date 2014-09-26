@@ -13,31 +13,6 @@ var DataRetriever = (function(){
     return baseString + latString + lngString + timeString
   }
 
-  // function getTime(){
-  //   var date = document.querySelector('[type=date]').value;
-  //   console.log("this is what's in :", date)
-  //   var unixTimestamp = new Date(date).getTime();
-  //   var timestamp = String(unixTimestamp).substr(0,10);
-  //   var offsetTime = new Date(date).getTimezoneOffset() * 60 + 43200
-  //   var adjustedTime = Number(timestamp) + offsetTime;
-  //   var time = "time=" + adjustedTime
-  //   return time
-  // }
-
-  // function getLatitude(){
-  //   // var latNumber = Number(capsulMap.getLatitude()).toPrecision(8);
-  //   var latNumber = Number(capsulMap.getLatitude());
-  //   var lat = "lat=" + latNumber + "&";
-  //   return lat
-  // }
-
-  // function getLongitude(){
-  //   // var lngNumber = Number(capsulMap.getLongitude()).toPrecision(8);
-  //   var lngNumber = Number(capsulMap.getLongitude());
-  //   var lng = "lng=" + lngNumber + "&";
-  //   return lng
-  // }
-
   function CapsulAjaxRequest(url, callback){
     console.log(url)
     capsulController.submitButtonLoading()
