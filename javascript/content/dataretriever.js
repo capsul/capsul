@@ -18,6 +18,7 @@ var DataRetriever = (function(){
 
   function getTime(){
     var date = document.querySelector('[type=date]').value;
+    console.log("this is what's in :", date)
     var unixTimestamp = new Date(date).getTime();
     var timestamp = String(unixTimestamp).substr(0,10);
     var offsetTime = new Date(date).getTimezoneOffset() * 60 + 43200
