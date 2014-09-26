@@ -1,6 +1,6 @@
 var capsulMap = (function() {
 
-	var mapContainer, map, pacInput, pac, bounds, center, pins = [], markers = []
+	var mapContainer, map, pacInput, pac, bounds, pins = [], markers = []
 
   var mapOptions = {
 	  mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -23,31 +23,33 @@ var capsulMap = (function() {
   }
 
   var clearMarkers = function() {
-  	console.log("clear markers will remove: ", markers)
+  	// console.log("clear markers will remove: ", markers)
   	markers.forEach(function(marker) {marker.setMap(null)})
   }
 
   var updateMapPlaces = function() {
+  		// console.log("trying to clear markers")
   		clearMarkers()
   		markers = []
 
-      var places = pac.getPlaces()
+      var places = pac.getPlaces();
 
       if (places.length === 0) {
 
-        return
+        return;
 
       } else if (places.length === 1) {
 
-      	var place = places[0]
+      	var place = places[0];
       	var marker = new google.maps.Marker({
       		map: map,
       		title: place.name,
       		position: place.geometry.location
-      	})
+      	});
 
-      	bounds = place.geometry.viewport
-
+      	bounds = place.geometry.viewport;
+        markers.push(marker);
+      	
       } else {
 
 	      // For each place, get the icon, place name, and location.
@@ -63,7 +65,7 @@ var capsulMap = (function() {
 
 	        // Record markers so they can be addressed / removed later.
 	        markers.push(marker);
-	        console.log(markers)
+	        // console.log(markers)
 
 	        // extend the map bounds to contain all markers.
 	        bounds.extend(place.geometry.location);
