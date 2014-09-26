@@ -23,8 +23,8 @@ var DataRetriever = (function(){
     var offsetTime = new Date(date).getTimezoneOffset() * 60 + 43200
     var adjustedTime = Number(timestamp) + offsetTime;
     var time = "time=" + adjustedTime
-    // return time
-    return "time=1410375600"
+    return time
+    // return "time=1410375600"
   }
 
   function getLatitude(){

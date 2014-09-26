@@ -75,7 +75,6 @@ var capsulMap = (function() {
       map.fitBounds(bounds)
       center = map.getCenter()
 
-
     }
 
   return {
@@ -91,9 +90,21 @@ var capsulMap = (function() {
 	    })
 	  },
 
-  	setPins: function(locations) {},
+  	setPin: function(latitiude, longitude) {
+  		var pin = new google.maps.Marker({
+  		  map: map,
+  		  position: {lat: latitiude, lng: longitude},
+  			icon: granuleMarker
+  		})
+      pins.push(pin);
+      // console.log("this is what's in pins: ", pins)
+  	},
 
-  	clearPins: function() {},
+  	clearPins: function() {
+  		// console.log("tryng to clear pins")
+	  	pins.forEach(function(pin) {pin.setMap(null)})
+  		pins = []
+  	},
 
   	triggerRedraw: function() {
   		google.maps.event.trigger(map, 'resize')
@@ -107,11 +118,6 @@ var capsulMap = (function() {
   	getLongitude: function() {
   		return center.B
   	},
-
-  	echoMap: function() {
-  		return map
-  	}
-
 
   }
 

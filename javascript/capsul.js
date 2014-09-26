@@ -150,7 +150,9 @@ var capsulController = (function() {
 
         capsulController.resetErrorMessage()
 
-        if (mapEnabled) showMap()
+        if (mapEnabled && !mapVisible) showMap()
+          
+        if (mapEnabled) capsulMap.clearPins()
 
         $(document).on('DOMMouseScroll mousewheel', function(event) { 
           if (mapEnabled && mapVisible && (event.originalEvent.detail > event.originalEvent.wheelDelta)) {
