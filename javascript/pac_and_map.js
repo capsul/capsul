@@ -15,6 +15,8 @@ var capsulMap = (function() {
 	  streetViewControl: false
   }
 
+  var center = mapOptions.center
+
 	var granuleMarker = {
 		url: "images/dot.png",
 	  size: new google.maps.Size(10, 10),
@@ -23,12 +25,10 @@ var capsulMap = (function() {
   }
 
   var clearMarkers = function() {
-  	// console.log("clear markers will remove: ", markers)
   	markers.forEach(function(marker) {marker.setMap(null)})
   }
 
   var updateMapPlaces = function() {
-  		// console.log("trying to clear markers")
   		clearMarkers()
   		markers = []
 
@@ -49,7 +49,7 @@ var capsulMap = (function() {
 
       	bounds = place.geometry.viewport;
         markers.push(marker);
-      	
+
       } else {
 
 	      // For each place, get the icon, place name, and location.
@@ -72,7 +72,9 @@ var capsulMap = (function() {
 	      }
 	    }
 
-      map.fitBounds(bounds);
+      map.fitBounds(bounds)
+      center = map.getCenter()
+
 
     }
 
@@ -84,24 +86,26 @@ var capsulMap = (function() {
   		pacInput = $("#pac-input")[0]
   		pac = new google.maps.places.SearchBox(pacInput)
   		google.maps.event.addListener(pac, 'places_changed', updateMapPlaces)
-  	},
+	    google.maps.event.addListener(map, 'bounds_changed', function(){
+	    	center = map.getCenter()
+	    })
+	  },
 
   	setPins: function(locations) {},
 
   	clearPins: function() {},
 
   	triggerRedraw: function() {
-  		console.log(map.getCenter())
   		google.maps.event.trigger(map, 'resize')
-      map.fitBounds(bounds);
+      map.panTo(center);
   	},
 
   	getLatitude: function() {
-  		return 47.606209
+  		return center.k
   	},
 
   	getLongitude: function() {
-  		return -122.33207
+  		return center.B
   	},
 
   	echoMap: function() {
