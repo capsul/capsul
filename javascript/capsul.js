@@ -238,10 +238,10 @@ function Slide(slide) {
 };
 
 $(document).ready(function() {
-  capsulController.initialize();
+  capsulController.initialize()
   capsulMap.initialize()
 })
 
-// $(document).ready(SlideshowController.prepareSlides.bind(SlideshowController))
+$(document).ready(SlideshowController.prepareSlides.bind(SlideshowController))
 
 

@@ -8,6 +8,8 @@
   <link href='http://fonts.googleapis.com/css?family=Signika:600,300' rel='stylesheet' type='text/css'>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  
+  <script type="text/javascript" src="javascript/libraries/handlebars_lib.js"></script>
 
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwoBQLdXCBaGaZ-JUj4efqMvlmhoerIAs&libraries=places"></script>
 
@@ -77,3 +79,16 @@
 </body>
 
 </html>
+
+<!-- HANDLEBARS TEMPLATE FOR SLIDESHOW SLIDES -->
+
+<script id='slide-template' type="text/x-handlebars-template">
+<div class='slide'>
+<div class='slide-text'>
+<h1>{{placename}}</h1>
+<h2>{{createdAt}}</h2>
+<h3>{{caption}}</h3>
+<h3>{{#each hashtags}}{{this}}&nbsp;&nbsp;{{/each}}</h3>
+</div>
+</div>
+</script>
