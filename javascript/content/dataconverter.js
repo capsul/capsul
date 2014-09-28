@@ -1,35 +1,45 @@
 var DataConverter = (function(){
 
+  var content = []
+  var locations = []
+
+  function pushLocation(latitude, longitude) {
+    if (!isNaN(latitude) && !isNaN(longitude))
+      locations.push({lat: latitude, lng: longitude})
+  }
+
+  function pushTextContent(textItem) {
+    content.push(new TextArticle(textItem));
+  }
+
+  function pushImageContent(imageItem) {
+    content.push(new Picture(imageItem));
+  }
+
   return {
     convertData: function(ajaxResponse){
-      console.log(ajaxResponse)
-
-      var content = []
-      var locations = []
-      var granuleLat
-      var granuleLng
-
       ajaxResponse.data.forEach(function(item){
         if (item) {
-          granuleLat = parseFloat(item.location.latitude)
-          granuleLng = parseFloat(item.location.longitude)
-          if (!isNaN(granuleLat) && !isNaN(granuleLng)) {
-            locations.push({
-              lat: granuleLat,
-              lng: granuleLng
-            })
-          }
-          if (item.type === "text") {
-            var text = new TextArticle(item);
-            content.push(text);
-          }
-          else if (item.type === "image") {
-            var picture = new Picture(item);
-            content.push(picture)
+
+          // parseFloat used below to account for inconsistent 
+          // string vs. number lat/lng response from capsul api
+          var granuleLat = parseFloat(item.location.latitude)
+          var granuleLng = parseFloat(item.location.longitude)
+
+          switch (item.type) {
+            case "text" :
+              pushTextContent(item)
+              pushLocation(granuleLat, granuleLng)
+              break;
+              
+            case "image" :
+              pushImageContent(item)
+              pushLocation(granuleLat, granuleLng)
+              break;
           }
         }
       })
-      console.log(content)
+      console.log("dataconverter output: ", content)
       capsulMap.setPins(locations)
       Viewport.set(content)
     }
