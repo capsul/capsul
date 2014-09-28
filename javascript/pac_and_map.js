@@ -1,7 +1,12 @@
 var capsulMap = (function() {
 
-	var mapContainer, map, pacInput, pac, bounds, pins = [], markers = []
-
+	var mapContainer, 
+      map, 
+      pacInput, 
+      pac, 
+      bounds, 
+      pins = [], 
+      markers = []
 
   var mapOptions = {
 	  mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -48,9 +53,13 @@ var capsulMap = (function() {
       		position: place.geometry.location
       	});
 
-        markers.push(marker);
+        markers.push(marker)
       	bounds = place.geometry.viewport
+        map.fitBounds(bounds)
       	center = place.geometry.location
+        map.panTo(center)
+        console.log("pac location: ", place.geometry.location)
+        console.log("map center: ", map.getCenter())
 
       } else {
 
@@ -69,11 +78,11 @@ var capsulMap = (function() {
 
 	        // extend the map bounds to contain all markers.
 	        bounds.extend(place.geometry.location);
-	      }
-	    }
+          map.fitBounds(bounds)
+          center = map.getCenter()
+        }
+      }
 
-      map.fitBounds(bounds)
-      center = map.getCenter()
 
     }
 
@@ -86,7 +95,10 @@ var capsulMap = (function() {
   		pac = new google.maps.places.SearchBox(pacInput)
   		google.maps.event.addListener(pac, 'places_changed', updateMapPlaces)
 	    google.maps.event.addListener(map, 'bounds_changed', function(){
-	    	center = map.getCenter()
+        bounds = map.getBounds()
+        center = map.getCenter()
+        console.log("bounds changed: ", bounds.Ea, bounds.ua)
+        console.log("center changed: ", center)
 	    })
 	  },
 
@@ -102,7 +114,8 @@ var capsulMap = (function() {
 		    pins.push(pin)
 		    pinBounds.extend(pin.getPosition())
   		})
-      map.fitBounds(pinBounds)
+      bounds = pinBounds
+      map.fitBounds(bounds)
       center = map.getCenter()
       pinBounds = []
   	},
