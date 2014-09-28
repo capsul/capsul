@@ -1,12 +1,6 @@
 var capsulMap = (function() {
 
-	var mapContainer, 
-      map, 
-      pacInput, 
-      pac, 
-      bounds, 
-      pins = [], 
-      markers = []
+	var mapContainer, map, pacInput, pac, bounds, pins = [], markers = []
 
   var mapOptions = {
 	  mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -58,8 +52,6 @@ var capsulMap = (function() {
         map.fitBounds(bounds)
       	center = place.geometry.location
         map.panTo(center)
-        console.log("pac location: ", place.geometry.location)
-        console.log("map center: ", map.getCenter())
 
       } else {
 
@@ -97,8 +89,6 @@ var capsulMap = (function() {
 	    google.maps.event.addListener(map, 'bounds_changed', function(){
         bounds = map.getBounds()
         center = map.getCenter()
-        console.log("bounds changed: ", bounds.Ea, bounds.ua)
-        console.log("center changed: ", center)
 	    })
 	  },
 

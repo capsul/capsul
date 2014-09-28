@@ -101,10 +101,12 @@ var SlideshowController = (function(){
 // also manages adjusting position of the granule viewer based on various factors
 
 var capsulController = (function() {
+
   var controlsHeight
   var mapEnabled
   var mapWidthThreshold = 767
   var mapVisible = false
+  var slideShowEnabled = true
 
   var showMap = function() {
     mapVisible = true
@@ -141,19 +143,18 @@ var capsulController = (function() {
       mapEnabled = ($(window).width() > mapWidthThreshold)
 
       $("#button").click(function() {
-        $("#cb-wrapper").animate({top: "0%"}, "slow")
-        $("header").animate({marginBottom: "0"}, "slow")
-
-        $("#slideshow").fadeOut( 750, function() {
-          $( this ).remove()
-        })
+        if (slideShowEnabled) {
+          $("#cb-wrapper").animate({top: "0%"}, "slow")
+          $("header").animate({marginBottom: "0"}, "slow")
+          $("#slideshow").fadeOut( 750, function() {
+            $( this ).remove()
+          })
+        }
 
         capsulController.resetErrorMessage()
 
         if (mapEnabled && !mapVisible) showMap()
           
-        if (mapEnabled) capsulMap.clearPins()
-
         $(document).on('DOMMouseScroll mousewheel', function(event) { 
           if (mapEnabled && mapVisible && (event.originalEvent.detail > event.originalEvent.wheelDelta)) {
             hideMap()

@@ -40,8 +40,11 @@ var DataConverter = (function(){
         }
       })
       console.log("dataconverter output: ", content)
+      capsulMap.clearPins()
       capsulMap.setPins(locations)
       Viewport.set(content)
+      content = []
+      locations = []
     }
   }
 })()
