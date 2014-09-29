@@ -42,6 +42,7 @@ var DataConverter = (function(){
       console.log("dataconverter output: ", content)
       capsulMap.clearPins()
       capsulMap.setPins(locations)
+      $('html,body').animate({ scrollTop: 0 }, 'slow')
       Viewport.set(content)
       content = []
       locations = []

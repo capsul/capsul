@@ -149,7 +149,8 @@ var capsulController = (function() {
           $("#slideshow").fadeOut( 750, function() {
             $( this ).remove()
           })
-        }
+          slideShowEnabled = false
+        } 
 
         capsulController.resetErrorMessage()
 
