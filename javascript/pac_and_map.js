@@ -26,11 +26,12 @@ var capsulMap = (function() {
 
   var clearMarkers = function() {
   	markers.forEach(function(marker) {marker.setMap(null)})
+		markers = []
   }
 
   var updateMapPlaces = function() {
-  		clearMarkers()
-  		markers = []
+    
+      clearMarkers()
 
       var places = pac.getPlaces();
 
@@ -48,9 +49,20 @@ var capsulMap = (function() {
       	});
 
         markers.push(marker)
-      	bounds = place.geometry.viewport
-        map.fitBounds(bounds)
       	center = place.geometry.location
+
+        if (place.geometry.viewport) {
+          bounds = place.geometry.viewport
+        } else {
+
+          var ur = new google.maps.LatLng(center.k - 1, center.B + 1)
+          var ll = new google.maps.LatLng(center.k + 1, center.B - 1)
+
+          bounds = new google.maps.LatLngBounds(ll, ur)
+          console.log("fallback bounds are: ", bounds)
+        }
+
+        map.fitBounds(bounds)
         map.panTo(center)
 
       } else {
