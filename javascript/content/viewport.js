@@ -8,6 +8,8 @@ var Viewport = (function(){
     set: function(data) {
       content = data;
       $(this).trigger('update')
+      // $('#granule-viewer').css("background-image", "url('./images/background/color-shift5.png')")
+      capsulController.submitButtonDefault()
     }
   }
 })()
