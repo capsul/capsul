@@ -1,8 +1,9 @@
 
-//Controller Below
-var SlideshowController = (function(){
+// Slideshow manager
+var SlideshowManager = (function(){
 
-    var backgroundSlides = {
+  // TODO: pull this data via ajax from server for dynamic images
+  var backgroundSlides = {
 
     data: [
       { type: "image",
@@ -39,7 +40,7 @@ var SlideshowController = (function(){
         placename: "New York",
         caption: "With my love at Times Square. Happy New Year everyone",
         hashtags: ["#newyork", "#timessquare", "#newyear"],
-        textcolor: "#FFFFFF"
+        textcolor: "#333333"
       },
       { type: "image",
         createdAt: "08/27/2012 at 11:24am",
@@ -53,129 +54,179 @@ var SlideshowController = (function(){
     ]
   }
 
+  var slides = []
+
+  var Slide = function(slideData) {
+    this.createdAt = slideData.createdAt,
+    this.link = slideData.link,
+    this.author = slideData.author,
+    this.placename = slideData.placename,
+    this.caption = slideData.caption,
+    this.hashtags = slideData.hashtags,
+    this.textcolor = slideData.textcolor
+  }
+
+  var compileSlides = function(data) {
+    data.forEach(function(slideData){
+      slides.push(new Slide(slideData));
+    })
+  }
+
+  var createHTML = function(slide){
+    var template = Handlebars.templates['slideshow']
+    var info = {
+      type: slide.type,
+      createdAt: slide.createdAt,
+      link: slide.link,
+      author: slide.author,
+      placename: slide.placename,
+      caption: slide.caption,
+      hashtags: slide.hashtags,
+      textcolor: slide.textcolor
+    };
+    return template(info);
+  }
+
+  var renderHTML = function(bundle){
+    slides.forEach(function(slide) {
+      slide.html = createHTML(slide)
+      $('#slideshow').append(slide.html)
+      $('#slideshow .slide').last().css({
+       'background-image' : 'url('+slide.link+')',
+       'opacity' : '1',
+       'color' : slide.textcolor
+       })
+    })
+  }
+
   return {
-
     prepareSlides: function(){
-      var slideBundle = this.compileSlides(backgroundSlides.data);
-      this.renderHTML(slideBundle.collection);
-    },
-
-    compileSlides: function(data){
-      var slideBundle = new SlideBundle();
-      data.forEach(function(slide){
-        slideBundle.collection.push(new Slide(slide));
-      })
-      Slides.all.push(slideBundle);
-      return slideBundle;
-    },
-
-    renderHTML: function(bundle){
-      var self = this;
-      bundle.forEach(function(slide) {
-        slide.html = self.createHTML(slide);
-        SlideView.render(slide.html, slide.link, slide.textcolor);
-      })
-    },
-
-    createHTML: function(slide){
-      // change #image-template to #slide-template
-      var source = $('#slide-template').html();
-      var template = Handlebars.compile(source);
-      var info = {
-        type: slide.type,
-        createdAt: slide.createdAt,
-        link: slide.link,
-        author: slide.author,
-        placename: slide.placename,
-        caption: slide.caption,
-        hashtags: slide.hashtags,
-        textcolor: slide.textcolor
-      };
-      return template(info);
+      compileSlides(backgroundSlides.data)
+      renderHTML(slides);
     }
   }
-})(SlideView);
 
-var controlBarController = (function() {
+})();
+
+// capsulController takes care of bar anim, map show hide on scroll or RO or for window resize
+// that crosses responsive snap point (map hidden for mobile)
+// also manages adjusting position of the granule viewer based on various factors
+
+var capsulController = (function() {
+
+  var controlsHeight
+  var mapEnabled
+  var mapWidthThreshold = 767
+  var mapVisible = false
+  var slideShowEnabled = true
+
+  var showMap = function() {
+    mapVisible = true
+    $("#map-drawer").css("visibility", "visible")
+    $("#map-drawer").animate({height: "250px",  opacity:"1"}, "slow")
+    $("#granule-viewer").animate({top: controlsHeight + 250 + 62 + "px"}, "slow");
+  }
+
+  var hideMap = function(){
+      mapVisible = false
+      $("#map-drawer").animate({height:"0px", opacity:"0"}, "slow", function() { $("#map-drawer").css("visibility", "hidden") })
+      $("#granule-viewer").animate({top: controlsHeight + 62 + "px"}, "slow");
+  }
+
+  var disableMap = function(){
+      mapVisible = false
+      $("#map-drawer").animate({height:"0px", opacity:"0"}, "slow", function() { $("#map-drawer").css("visibility", "hidden") })
+      $("#granule-viewer").animate({top: 10 + "px"}, "slow");
+  }
+
+  var getControlsHeight = function() {
+    return $("header").height() + $("#control-bar").height()
+  }
+
+  var getMapHeight = function() {
+    return $("#map-drawer").height()
+  }
+
   return {
-    slideUp: function() {
-      var self = this;
+    initialize: function() {
+      
+      controlsHeight = getControlsHeight()
+      $( "#datepicker" ).datepicker({maxDate: 0})
+      mapEnabled = ($(window).width() > mapWidthThreshold)
 
       $("#button").click(function() {
-        $("#cb-wrapper").animate({top:"0%"}, "slow");
 
-        $("#slideshow").fadeOut( 750, function() {
-          $( this ).remove()
-        });
-        $("#control-bar").on('mouseenter', function() {
-          $("#map-canvas").fadeIn(750, function(){
-            $(this).attr('visibility', 'visible')
-          });
-        });
-        $("#map-canvas").css("visibility", "visible");
-        $("#map-canvas").animate({opacity: "1"}, "slow");
+        if ( $("#datepicker").val() === "" || $("#pac-input").val() === "" ) return
 
-        $(document).on('DOMMouseScroll mousewheel', self.handleMap)
+        var dateFieldVal        = $( "#datepicker" ).datepicker("getDate")
+        var formattedDateString = $.datepicker.formatDate( "yy-mm-dd", dateFieldVal)
+        var lat                 = capsulMap.getLatitude()
+        var lng                 = capsulMap.getLongitude()
+
+        DataRetriever.requestData(formattedDateString, lat, lng)
+
+        if (slideShowEnabled) {
+          $("#cb-wrapper").animate({top: "0%"}, "slow")
+          $("header").animate({marginBottom: "0"}, "slow")
+          $("#slideshow").fadeOut( 750, function() {
+            $( this ).remove()
+          })
+          slideShowEnabled = false
+        } 
+        // css setting below is for diabled fading background feature -- turned off cause it's ugly.
+        // $('#granule-viewer').css("background-image", "none")
+        capsulController.resetErrorMessage()
+
+        if (mapEnabled && !mapVisible) showMap()
+          
+        $(document).on('DOMMouseScroll mousewheel', function(event) { 
+          if (mapEnabled && mapVisible && (event.originalEvent.detail > event.originalEvent.wheelDelta)) {
+            hideMap()
+          } 
         })
+
+        $("#control-bar").mouseenter(function() { if (mapEnabled && !mapVisible) showMap() })
+
+        $(window).on("resize", function(e) {
+          if (mapEnabled) capsulMap.triggerRedraw()
+          var mapShouldShow = (e.target.innerWidth > mapWidthThreshold)
+          if (controlsHeight !== getControlsHeight()) controlsHeight = getControlsHeight()
+          if (mapShouldShow !== mapEnabled ) {
+               mapEnabled = !mapEnabled
+            if (mapEnabled) {
+              $("#granule-viewer").css("top", controlsHeight + getMapHeight() + 62 + "px")
+              showMap()
+            } else {
+              disableMap()
+            }
+          }
+        })
+      })
     },
 
-    handleMap: function(event){
-      if (event.originalEvent.detail > event.originalEvent.wheelDelta) {
-        $("#map-canvas").fadeOut(750,function(){
-          $(this).attr('visibility','hidden')
-        });
-      }
-      // else if (event.originalEvent.detail < event.originalEvent.wheelDelta) {
-        // $("#map-canvas").fadeIn(750, function(){
-        //   $(this).attr('visibility', 'visible')
-        // });
-      // }
+    submitButtonLoading: function() {
+      $("#button").css("background-image", "url('images/loading.gif')")
+    },
+
+    submitButtonDefault: function() {
+      $("#button").css("background-image", "")
+    },
+
+    showErrorMessage: function() {
+      $("#error-banner").css("display", "block")
+    },
+
+    resetErrorMessage: function() {
+      $("#error-banner").css("display", "none")
     }
+
   }
 })()
 
-//View Below
-var SlideView = (function(){
-  return {
-    render: function(slideHTML, slideBgImage, slideTextColor){
-      $('#slideshow').append(slideHTML);
-      $('#slideshow .slide').last().css({
-       'background-image' : 'url('+slideBgImage+')',
-       'opacity' : '1',
-       'color' : slideTextColor
-       });
-    }
-  }
-})()
+$(document).ready(function() {
+  capsulController.initialize()
+  capsulMap.initialize()
+  SlideshowManager.prepareSlides()
+})
 
-//Models & Model Holders Below
-
-//holds all images from every API call ever made
-var Slides = (function() {
-  return {
-    all: []
-  }
-})()
-
-//holds all images from a single API call
-function SlideBundle() {
-  this.collection = [];
-}
-
-// Model for single image
-function Slide(slide) {
-  this.createdAt = slide.createdAt,
-  this.link = slide.link,
-  this.author = slide.author,
-  this.placename = slide.placename,
-  this.caption = slide.caption,
-  this.hashtags = slide.hashtags,
-  this.textcolor = slide.textcolor
-};
-
-
-$(document).ready(SlideshowController.prepareSlides.bind(SlideshowController)
-  )
-
-$(document).ready(controlBarController.slideUp.bind(controlBarController))
 
